@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "108127904042",
+    "firebase_url": "https://still-here-b0b26-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "still-here-b0b26",
+    "storage_bucket": "still-here-b0b26.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108127904042:android:8dfb6e00b1f607fc197e53",
+        "android_client_info": {
+          "package_name": "com.np.StillHere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0nOFZA3eNV5Ol_Vv6k72FM2cRQMQbtC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
