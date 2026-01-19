@@ -24,7 +24,13 @@ public static class LeaderboardManager
     
     public static void UpdateLeaderboard(Run currentRun)
     {
-        float runTime = currentRun.runTime;
+        if (!DatabaseAccountManager.isAuthenticated())
+        {
+            Debug.Log("No user logged in");
+            return;
+        }
+
+        float runTime = currentRun.Time;
         int leaderboardPosition = -1;
 
         for (int i = 0; i < leaderboard.Count; i++)
@@ -40,7 +46,7 @@ public static class LeaderboardManager
         {
             LeaderboardInfo info = new LeaderboardInfo();
             info.Username = "";
-            info.Time = currentRun.runTime;
+            info.Time = currentRun.Time;
             List<LeaderboardInfo> newLeaderboard = new List<LeaderboardInfo>();
 
             for (int i = 0; i < leaderboardLength; i++)

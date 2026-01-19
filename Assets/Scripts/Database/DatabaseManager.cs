@@ -16,16 +16,17 @@ public static class DatabaseManager
 
         try
         {
-            if (DatabaseAccountManager.user == null)
-            {
-                databaseResult.faulted = true;
-                databaseResult.errorMessage = "No user logged in";
-            }
-            else
+            if (DatabaseAccountManager.isAuthenticated())
             {
                 Debug.Log("User Data Read started");
                 string userID = DatabaseAccountManager.user.UserId;
                 databaseResult.snapshot = await userDataReference.Child(userID).GetValueAsync();
+                
+            }
+            else
+            {
+                databaseResult.faulted = true;
+                databaseResult.errorMessage = "No user logged in";
             }
         }
         catch (DatabaseException databaseException)
@@ -47,15 +48,16 @@ public static class DatabaseManager
     {
         try
         {
-            if (DatabaseAccountManager.user == null)
-            {
-                Debug.Log("No user logged in");
-            } 
-            else
+            if (DatabaseAccountManager.isAuthenticated())
             {
                 Debug.Log("User Data Write started");
                 string userID = DatabaseAccountManager.user.UserId;
                 await userDataReference.Child(userID).SetValueAsync(player.playerData);
+                
+            } 
+            else
+            {
+                Debug.Log("No user logged in");
             }
         }
         catch (DatabaseException databaseException)

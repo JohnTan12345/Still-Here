@@ -7,6 +7,7 @@ public static class DatabaseAccountManager
 {
     private static readonly FirebaseAuth AuthenticationDatabase = FirebaseAuth.DefaultInstance;
     public static readonly FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
+    public static bool isAuthenticated() => user != null;
 
     public static async Task<AccountResult> CreateAccountWithEmailAndPasswordAsync(string email, string password)
     {
@@ -45,6 +46,11 @@ public static class DatabaseAccountManager
         return accountResult;
     }
 
+    public static async void SignOutAccount()
+    {
+        AuthenticationDatabase.SignOut();
+    }
+
     private static string FirebaseAccountErrorHandler(FirebaseException firebaseException)
     {
         string errorMessage = "";
@@ -52,6 +58,7 @@ public static class DatabaseAccountManager
         // Deal with auth error messages later
         return errorMessage;
     }
+    
     
 }
 
