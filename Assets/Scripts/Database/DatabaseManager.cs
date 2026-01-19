@@ -1,13 +1,10 @@
 using System.Threading.Tasks;
-using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using UnityEngine;
 
 public static class DatabaseManager
 {
-    private static readonly FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
-    private static bool isAuthenticated() => user.UserId != null || user.UserId != "";
     static readonly FirebaseDatabase databaseInstance = FirebaseDatabase.DefaultInstance;
 
     // Player Data
@@ -19,24 +16,28 @@ public static class DatabaseManager
 
         try
         {
-            if (!isAuthenticated())
+            if (DatabaseAccountManager.user == null)
             {
                 databaseResult.faulted = true;
                 databaseResult.errorMessage = "No user logged in";
             }
             else
             {
-                string userID = user.UserId;
-                DataSnapshot userDataSnapshot = await userDataReference.Child(userID).GetValueAsync();
-                databaseResult.value = userDataSnapshot.GetRawJsonValue();
+                Debug.Log("User Data Read started");
+                string userID = DatabaseAccountManager.user.UserId;
+                databaseResult.snapshot = await userDataReference.Child(userID).GetValueAsync();
             }
         }
-        catch (FirebaseException firebaseException)
+        catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{firebaseException.Message}");
+            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
             databaseResult.faulted = true;
-            databaseResult.errorMessage = firebaseException.Message;
+            databaseResult.errorMessage = databaseException.Message;
 
+        }
+        finally
+        {
+            Debug.Log("User Data Read finished");
         }
 
         return databaseResult;
@@ -46,26 +47,75 @@ public static class DatabaseManager
     {
         try
         {
-            if (!isAuthenticated())
+            if (DatabaseAccountManager.user == null)
             {
                 Debug.Log("No user logged in");
             } 
             else
             {
-                
+                Debug.Log("User Data Write started");
+                string userID = DatabaseAccountManager.user.UserId;
+                await userDataReference.Child(userID).SetValueAsync(player.playerData);
             }
         }
-        catch (DatabaseException DatabaseException)
+        catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{DatabaseException.Message}");
+            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
         }
-        
+        finally
+        {
+            Debug.Log("User Data Write finished");
+        }
+    }
+
+    public async static Task<DatabaseResult> GetValueFromPath(string path)
+    {
+        DatabaseResult databaseResult = new DatabaseResult();
+        databaseInstance.SetPersistenceEnabled(false);
+        DatabaseReference databaseReference = databaseInstance.GetReference(path);
+
+        try
+        {
+            Debug.Log($"Read from path: {path} started");
+            databaseResult.snapshot = await databaseReference.GetValueAsync();
+        }
+        catch (DatabaseException databaseException)
+        {
+            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+            databaseResult.faulted = true;
+            databaseResult.errorMessage = databaseException.Message;
+        }
+        finally
+        {
+            Debug.Log($"Read from path: {path} finished");
+        }
+
+        return databaseResult;
+    }
+
+    public async static void SetValueInPath(string path, string valueJSON)
+    {
+        databaseInstance.SetPersistenceEnabled(false);
+        DatabaseReference databaseReference = databaseInstance.GetReference(path);
+
+        try
+        {
+            await databaseReference.SetRawJsonValueAsync(valueJSON);
+        }
+        catch (DatabaseException databaseException)
+        {
+            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+        }
+        finally
+        {
+            Debug.Log("User Data Write finished");
+        }
     }
 }
 
 public class DatabaseResult
 {
-    public string value;
+    public DataSnapshot snapshot;
     public bool faulted = false;
     public string errorMessage;
 }

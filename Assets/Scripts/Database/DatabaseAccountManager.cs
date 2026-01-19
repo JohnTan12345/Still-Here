@@ -6,6 +6,7 @@ using UnityEngine;
 public static class DatabaseAccountManager
 {
     private static readonly FirebaseAuth AuthenticationDatabase = FirebaseAuth.DefaultInstance;
+    public static readonly FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
 
     public static async Task<AccountResult> CreateAccountWithEmailAndPasswordAsync(string email, string password)
     {

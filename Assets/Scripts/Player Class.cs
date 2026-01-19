@@ -3,15 +3,15 @@ using System.Collections.Generic;
 public class Player
 {
     public PlayerData playerData;
-    public Runs currentRun;
+    public Run currentRun;
 }
 
 public class PlayerData
 {
-    public List<Runs> previousRuns;
+    public List<Run> previousRuns;
 }
 
-public class Runs
+public class Run
 {
-    
+    public float runTime = 0;
 }
