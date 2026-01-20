@@ -46,7 +46,7 @@ public static class DatabaseAccountManager
         return accountResult;
     }
 
-    public static async void SignOutAccount()
+    public static void SignOutAccount()
     {
         AuthenticationDatabase.SignOut();
     }
