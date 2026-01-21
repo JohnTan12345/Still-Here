@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Firebase.Auth;
 using Firebase.Database;
@@ -31,10 +32,16 @@ public static class DatabaseManager
         }
         catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
             databaseResult.faulted = true;
             databaseResult.errorMessage = databaseException.Message;
 
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{exception.Message}");
+            databaseResult.faulted = true;
+            databaseResult.errorMessage = exception.Message;
         }
         finally
         {
@@ -57,12 +64,16 @@ public static class DatabaseManager
             } 
             else
             {
-                Debug.Log("No user logged in");
+                Debug.LogError("No user logged in");
             }
         }
         catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{exception.Message}");
         }
         finally
         {
@@ -80,12 +91,19 @@ public static class DatabaseManager
         {
             Debug.Log($"Read from path: {path} started");
             databaseResult.snapshot = await databaseReference.GetValueAsync();
+            
         }
         catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
             databaseResult.faulted = true;
             databaseResult.errorMessage = databaseException.Message;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{exception.Message}");
+            databaseResult.faulted = true;
+            databaseResult.errorMessage = exception.Message;
         }
         finally
         {
@@ -106,7 +124,11 @@ public static class DatabaseManager
         }
         catch (DatabaseException databaseException)
         {
-            Debug.Log($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{databaseException.Message}");
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"An error occured when fetching data.\nSource: Firebase\nException:{exception.Message}");
         }
         finally
         {
