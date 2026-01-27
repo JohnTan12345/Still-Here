@@ -25,6 +25,7 @@ public static class GameInfo
         }
 
         DataSnapshot snapshot = databaseResult.snapshot;
+        Debug.Log(snapshot.GetRawJsonValue());
 
         // Check game version
         if (gameVersion != snapshot.Child("Version").GetValue(false).ToString())

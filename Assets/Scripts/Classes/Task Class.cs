@@ -5,8 +5,8 @@ using UnityEngine;
 public static class GameTasks
 {
     private static Dictionary<string, GameTask> gameTasks;
-    private static List<string> gameTasksName;
-
+    private static List<string> gameTasksOrder;
+    public static List<string> GetGameTasksOrder() => gameTasksOrder;
     public static Dictionary<string, GameTask> GetGameTasks() => gameTasks;
     public static void AddGameTaskProgress(string gameTaskName, int stepNumber, float progresesAmount) => gameTasks[gameTaskName].AddTaskProgress(stepNumber, progresesAmount);
     public static void StartGameTask(string gameTaskName) => gameTasks[gameTaskName].StartTask();
@@ -17,13 +17,12 @@ public static class GameTasks
         List<string> gameTaskListSelectables = new List<string>();
 
         gameTasks = new Dictionary<string, GameTask>();
-        gameTasksName = new List<string>();
+        gameTasksOrder = new List<string>();
 
         // Load available tasks
         foreach (string gameTask in gameTasklistAndSteps.Keys)
         {
             gameTaskListSelectables.Add(gameTask);
-            Debug.Log("Added");
         }
 
         // Input 
@@ -34,16 +33,15 @@ public static class GameTasks
             
             GameTask gameTaskObject = new GameTask();
             gameTaskObject.Steps = gameTasklistAndSteps[gameTask];
-            Debug.Log(gameTaskObject.Steps.Count);
             
             gameTasks.Add(gameTask, gameTaskObject);
-            gameTasksName.Add(gameTask);
+            gameTasksOrder.Add(gameTask);
 
             gameTaskListSelectables.RemoveAt(gameTaskIndex);
         }
     }
 
-    public static void ForgetCompletedGameTasks(int amount)
+    public static void ForgetCompletedGameTasks(int amount, bool shuffleOrder = false)
     {
         if (amount <= 0)
         {
@@ -58,12 +56,37 @@ public static class GameTasks
 
         List<GameTask> selectableGameTasks = GetGameTasks().Values.ToList();
         
-
         for (int i = 0; i < amount; i++)
         {
             int selected = Random.Range(0, selectableGameTasks.Count - 1);
             selectableGameTasks[selected].ForgetTaskCompleted();
             selectableGameTasks.RemoveAt(selected);
+        }
+
+        if (shuffleOrder)
+        {
+            Debug.Log("Randomizing order");
+            List<string> oldTaskOrder = GetGameTasksOrder();
+            gameTasksOrder = new List<string>();
+
+            int i = 0; // Counter
+
+            while (oldTaskOrder.Count > 0)
+            {
+                int oldPosition = Random.Range(0, oldTaskOrder.Count - 1);
+                gameTasksOrder.Add(oldTaskOrder[oldPosition]);
+                oldTaskOrder.RemoveAt(oldPosition);
+
+                // Just in case theres a infinite loop for whatever reason
+                i++;
+                if (i == 50)
+                {
+                    Debug.LogError("Infinite loop detected. Stopping game");
+                    throw new System.Exception("Infinite loop detected. Stopping game");
+                }
+            }
+
+            Debug.Log("Finished randomizing order");
         }
     }
 }
@@ -71,9 +94,9 @@ public static class GameTasks
 public class GameTask
 {
     public int CurrentStepCount {get; private set;} = 0;
-    public string CurrentStepDescription {get {return Steps[CurrentStepCount - 1].StepDescription;}}
+    public string CurrentStepDescription {get {return Steps[CurrentStepCount].StepDescription;}}
     public float CurrentProgress {get; private set;} = 0;
-    public float MaxProgress {get {return Steps[CurrentStepCount - 1].MaxProgress;}}
+    public float MaxProgress {get {return Steps[CurrentStepCount].MaxProgress;}}
     public bool TaskComplete {get; private set;} = false;
     public int TaskCompletionCount {get; private set;} = 0;
     public List<GameTaskStep> Steps = new List<GameTaskStep>();
@@ -90,7 +113,7 @@ public class GameTask
     {
         if (stepNumber != CurrentStepCount && stepNumber != 0)
         {
-            if (Steps[stepNumber - 1].GameEndingStep)
+            if (Steps[stepNumber].GameEndingStep)
             {
                 // END THAT GAME
             }
@@ -98,24 +121,27 @@ public class GameTask
             return;
         } else if (stepNumber == 0)
         {
+            StartTask();
             return;
         }
 
-        CurrentProgress += progresesAmount;
+        if (CurrentProgress < MaxProgress)
+        {
+            CurrentProgress += progresesAmount;
+        }
         
         if (CurrentProgress >= MaxProgress)
         {
-            if (CurrentStepCount < Steps.Count)
+            if (CurrentStepCount < Steps.Count - 1)
             {
                 CurrentStepCount++;
+                CurrentProgress = 0f;
             }
             else
             {
                 TaskComplete = true;
                 TaskCompletionCount++;
             }
-
-            CurrentProgress = 0f;
             
         }
 
@@ -123,8 +149,13 @@ public class GameTask
 
     public void ForgetTaskCompleted()
     {
-        CurrentStepCount = 0;
-        TaskComplete = false;
+        if (TaskComplete)
+        {
+           CurrentStepCount = 0;
+            TaskComplete = false;
+            CurrentProgress = 0f; 
+        }
+        
     }
 }
 

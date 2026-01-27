@@ -28,19 +28,14 @@ public class TaskPanelUI : MonoBehaviour
 
     private void OnGameTaskAssign()
     {
-        Debug.Log("doing smth");
         gameTask = GameTasks.GetGameTasks()[gameTaskName];
         addProgressButon.onClick.AddListener(AddTaskProgress);
         completeTaskButton.onClick.AddListener(CompleteTask);
         resetTask.onClick.AddListener(ResetTask);
-        gameTask.StartTask();
 
-        taskText.text = gameTaskName;
-        stepDescriptionText.text = gameTask.CurrentStepDescription;
-        
-        progressTrackerText.text = $"{gameTask.CurrentProgress}/{gameTask.MaxProgress}";
-        progressBar.transform.GetChild(0).localScale = new Vector3(gameTask.CurrentProgress/gameTask.MaxProgress, 1, 1);
-        Debug.Log(gameTask.CurrentStepCount - 1);
+        UpdateStepInfoUI();
+
+        CheckComplete();
     }
 
     private void AddTaskProgress()
@@ -54,8 +49,6 @@ public class TaskPanelUI : MonoBehaviour
             gameTask.AddTaskProgress(gameTask.CurrentStepCount, 1);
         }
         
-        progressTrackerText.text = $"{gameTask.CurrentProgress}/{gameTask.MaxProgress}";
-        progressBar.transform.GetChild(0).localScale = new Vector3(gameTask.CurrentProgress/gameTask.MaxProgress, 1, 1);
         CheckComplete();
     }
 
@@ -73,6 +66,7 @@ public class TaskPanelUI : MonoBehaviour
 
     private void CheckComplete()
     {
+        UpdateStepInfoUI();
         if (gameTask.TaskComplete)
         {
             completeTaskPanel.SetActive(true);
@@ -81,5 +75,14 @@ public class TaskPanelUI : MonoBehaviour
         {
             completeTaskPanel.SetActive(false);
         }
+    }
+
+    private void UpdateStepInfoUI()
+    {
+        taskText.text = gameTaskName;
+        stepDescriptionText.text = gameTask.CurrentStepDescription;
+        
+        progressTrackerText.text = $"{gameTask.CurrentProgress}/{gameTask.MaxProgress}";
+        progressBar.transform.GetChild(0).localScale = new Vector3(gameTask.CurrentProgress/gameTask.MaxProgress, 1, 1);
     }
 }
