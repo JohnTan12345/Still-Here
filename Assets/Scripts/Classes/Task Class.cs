@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class GameTasks
@@ -22,6 +23,7 @@ public static class GameTasks
         foreach (string gameTask in gameTasklistAndSteps.Keys)
         {
             gameTaskListSelectables.Add(gameTask);
+            Debug.Log("Added");
         }
 
         // Input 
@@ -32,6 +34,7 @@ public static class GameTasks
             
             GameTask gameTaskObject = new GameTask();
             gameTaskObject.Steps = gameTasklistAndSteps[gameTask];
+            Debug.Log(gameTaskObject.Steps.Count);
             
             gameTasks.Add(gameTask, gameTaskObject);
             gameTasksName.Add(gameTask);
@@ -45,11 +48,22 @@ public static class GameTasks
         if (amount <= 0)
         {
             Debug.LogWarning("You cant just forget nothing");
+            return;
         }
+        else if (amount >= GetGameTasks().Count)
+        {
+            Debug.LogWarning("You cant just forget more than what you have");
+            return;
+        }
+
+        List<GameTask> selectableGameTasks = GetGameTasks().Values.ToList();
+        
 
         for (int i = 0; i < amount; i++)
         {
-            gameTasks[gameTasksName[i]].ForgetTaskCompleted();
+            int selected = Random.Range(0, selectableGameTasks.Count - 1);
+            selectableGameTasks[selected].ForgetTaskCompleted();
+            selectableGameTasks.RemoveAt(selected);
         }
     }
 }
@@ -57,12 +71,13 @@ public static class GameTasks
 public class GameTask
 {
     public int CurrentStepCount {get; private set;} = 0;
-    public string CurrentStep {get {return Steps[CurrentStepCount - 1].StepDescription;}}
+    public string CurrentStepDescription {get {return Steps[CurrentStepCount - 1].StepDescription;}}
     public float CurrentProgress {get; private set;} = 0;
+    public float MaxProgress {get {return Steps[CurrentStepCount - 1].MaxProgress;}}
     public bool TaskComplete {get; private set;} = false;
     public int TaskCompletionCount {get; private set;} = 0;
     public List<GameTaskStep> Steps = new List<GameTaskStep>();
-
+    public void CompleteTask(bool value) => TaskComplete = value;
     public void StartTask()
     {
         if (CurrentStepCount == 0)
@@ -88,7 +103,7 @@ public class GameTask
 
         CurrentProgress += progresesAmount;
         
-        if (CurrentProgress >= Steps[CurrentStepCount - 1].MaxProgreses)
+        if (CurrentProgress >= MaxProgress)
         {
             if (CurrentStepCount < Steps.Count)
             {
@@ -98,7 +113,6 @@ public class GameTask
             {
                 TaskComplete = true;
                 TaskCompletionCount++;
-                CurrentStepCount = 0;
             }
 
             CurrentProgress = 0f;
@@ -109,6 +123,7 @@ public class GameTask
 
     public void ForgetTaskCompleted()
     {
+        CurrentStepCount = 0;
         TaskComplete = false;
     }
 }
@@ -118,5 +133,5 @@ public class GameTaskStep
 {
     public bool GameEndingStep = false;
     public string StepDescription;
-    public float MaxProgreses;
+    public float MaxProgress;
 }

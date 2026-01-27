@@ -40,7 +40,6 @@ public static class GameInfo
             foreach (var step in gameTask.Children)
             {
                 GameTaskStep taskStep = JsonUtility.FromJson<GameTaskStep>(step.GetRawJsonValue());
-
                 steps.Add(taskStep);
             }
 
@@ -61,5 +60,7 @@ public static class GameInfo
 
             allObjectsPositions.Add(objectName.Key, positions);
         }
+
+        Debug.Log("Loaded all data");
     }
 }
