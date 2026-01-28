@@ -14,7 +14,7 @@ public static class GameInfo
     public static Dictionary<string, List<GameTaskStep>> GetGameTaskList() => databaseGameTasklist;
     public static List<Vector3> GetObjectPositions(string objectName) => allObjectsPositions[objectName];
 
-    public static async void FetchGameInfoDatabase()
+    public static async Task FetchGameInfoDatabase()
     {
         DatabaseResult databaseResult = await DatabaseManager.GetValueFromPath("GameInfo");
 
