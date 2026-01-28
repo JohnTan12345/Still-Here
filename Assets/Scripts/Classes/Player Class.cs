@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player
 {
+    public static Player currentPlayer = null;
     public PlayerData playerData = new PlayerData();
     public Run currentRun;
     public bool isLoaded() => playerData != null;
@@ -27,6 +28,8 @@ public class Player
         {
             Debug.Log("Player not logged in");
         }
+
+        currentPlayer = this;
     }
 
     public void SavePlayerData()
