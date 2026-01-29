@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Prefabs/Models/BinCornerEndPc.prefab.meta
 guid: 7a370e4d75402e04094ca9b31d8828b0
 PrefabImporter:
+=======
+guid: 973ffd3e1165df2488df042cdcc75303
+AssemblyDefinitionImporter:
+>>>>>>> Stashed changes:Assets/Samples/XR Interaction Toolkit/3.3.0/XR Interaction Simulator/Editor/InteractionSimulator.Editor.asmdef.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

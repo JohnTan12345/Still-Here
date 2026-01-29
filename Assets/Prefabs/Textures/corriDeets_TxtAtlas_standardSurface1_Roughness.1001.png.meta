@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Prefabs/Textures/corriDeets_TxtAtlas_standardSurface1_Roughness.1001.png.meta
 guid: 89014b8f23557c241baddc2a835cd0f7
+=======
+guid: 05f7eaba693a72348b2ce5d9fc5c192a
+>>>>>>> Stashed changes:Assets/Samples/XR Interaction Toolkit/3.3.0/XR Interaction Simulator/UI/Controller/RightControllerOutline@2x.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

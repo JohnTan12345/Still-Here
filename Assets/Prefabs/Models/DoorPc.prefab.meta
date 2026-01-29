@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Prefabs/Models/DoorPc.prefab.meta
 guid: 80c01ab06aa0e8c44a6c5432a16d4ed9
 PrefabImporter:
+=======
+guid: 209ffeec5fd8e104b9fb9d8be339a458
+AssemblyDefinitionImporter:
+>>>>>>> Stashed changes:Assets/Samples/XR Interaction Toolkit/3.3.0/XR Interaction Simulator/InteractionSimulator.asmdef.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

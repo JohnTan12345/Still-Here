@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Prefabs/Models/BarWindowPc.prefab.meta
 guid: 68129598dba1c984fa6fcddddb17de1e
+=======
+guid: 44de6d6e2d9fe474c91c8bf7b1b68ccd
+>>>>>>> Stashed changes:Assets/Samples/XR Interaction Toolkit/3.3.0/XR Interaction Simulator/XR Interaction Simulator.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
