@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream:Assets/Prefabs/Textures/corriDeets_TxtAtlas_standardSurface1_Emission.1001.png.meta
-guid: b7cc84c78de66d346a479e364e8a470c
-=======
-guid: 3b902e1fb43068d489c3562a8d2fb81b
->>>>>>> Stashed changes:Assets/Samples/XR Interaction Toolkit/3.3.0/XR Interaction Simulator/UI/Controller/ControllerLeft.png.meta
+guid: e6189a4b3ab2c674fa2ae83f936439fd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -99,19 +95,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
