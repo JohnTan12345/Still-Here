@@ -12,29 +12,52 @@ public class LoginPanelManager : MonoBehaviour
     [SerializeField]
     private TMP_InputField password;
     [SerializeField]
-    private Button loginButton;
+    private Button loginSignUpButton;
     [SerializeField]
-    private Button signupButton;
+    private TextMeshProUGUI loginSignUpText;
+    [SerializeField]
+    private Button switchButton;
+    [SerializeField]
+    private TextMeshProUGUI switchText;
+
+    private bool login = true;
 
     void Start()
     {
-        loginButton.onClick.AddListener(onLoginButtonClicked);
-        signupButton.onClick.AddListener(onSignUpButtonClicked);
+        loginSignUpButton.onClick.AddListener(onButtonClicked);
+        switchButton.onClick.AddListener(onSwitch);
     }
 
-    private void onLoginButtonClicked()
+    private void onButtonClicked()
     {
-       StartCoroutine(Login()); 
+        if (login)
+        {
+            StartCoroutine(Login()); 
+        }
+        else
+        {
+            StartCoroutine(SignUp());
+        }
     }
-    private void onSignUpButtonClicked()
+    private void onSwitch()
     {
-       StartCoroutine(SignUp()); 
+        login = !login;
+        if (login)
+        {
+            loginSignUpText.text = "Login";
+            switchText.text = "No Account?";
+        }
+        else
+        {
+            loginSignUpText.text = "Sign Up";
+            switchText.text = "Have Account?";
+        }
     }
     private IEnumerator Login()
     {
         Task<AccountResult> accountTask = DatabaseAccountManager.SignInAccountWithEmailAndPasswordAsync(email.text, password.text);
 
-        yield return new WaitUntil(()=> accountTask.IsCompleted);
+        yield return new WaitUntil(() => accountTask.IsCompleted);
 
         if (accountTask.Result.faulted)
         {
@@ -45,17 +68,23 @@ public class LoginPanelManager : MonoBehaviour
         Player player = new Player();
         Task createPlayerTask = player.CreatePlayer();
         yield return new WaitUntil(() => createPlayerTask.IsCompleted);
-        Debug.Log("Player Created!");
+        MainMenuUIManager.instance.ReturnToMainPanel();
     }
     private IEnumerator SignUp()
     {
-        Task<AccountResult> accountResult = DatabaseAccountManager.CreateAccountWithEmailAndPasswordAsync(email.text, password.text);
+        Task<AccountResult> accountTask = DatabaseAccountManager.CreateAccountWithEmailAndPasswordAsync(email.text, password.text);
 
-        yield return new WaitUntil(()=> accountResult.IsCompleted);
+        yield return new WaitUntil(()=> accountTask.IsCompleted);
+
+        if (accountTask.Result.faulted)
+        {
+            Debug.Log("e");
+            yield break;
+        }
 
         Player player = new Player();
         Task createPlayerTask = player.CreatePlayer();
         yield return new WaitUntil(() => createPlayerTask.IsCompleted);
-        Debug.Log("Player Created!");
+        MainMenuUIManager.instance.ReturnToMainPanel();
     }
 }

@@ -6,9 +6,23 @@ using UnityEngine;
 public static class DatabaseAccountManager
 {
     private static readonly FirebaseAuth AuthenticationDatabase = FirebaseAuth.DefaultInstance;
-    public static readonly FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
-    public static bool isAuthenticated() => user != null;
+    public static FirebaseUser user {get; private set;}
+    public static bool signedIn {get; private set;} = false;
+    public static bool isAuthenticated() => user != null && !string.IsNullOrEmpty(user.Email);
 
+    public static void Initialize()
+    {
+        AuthenticationDatabase.StateChanged += AuthStateChanged;
+        AuthStateChanged(null, null);
+    }
+
+    private static void AuthStateChanged(object sender, System.EventArgs eventArgs)
+    {
+        if (AuthenticationDatabase.CurrentUser != user)
+        {
+            user = AuthenticationDatabase.CurrentUser;
+        }
+    }    
     public static async Task<AccountResult> CreateAccountWithEmailAndPasswordAsync(string email, string password)
     {
         AccountResult accountResult = new AccountResult();
@@ -58,8 +72,6 @@ public static class DatabaseAccountManager
         // Deal with auth error messages later
         return errorMessage;
     }
-    
-    
 }
 
 public class AccountResult
