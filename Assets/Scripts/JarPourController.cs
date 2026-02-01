@@ -55,5 +55,17 @@ public class JarPourController : MonoBehaviour
         if (pourParticles.isPlaying)
             pourParticles.Stop();
     }
+
+    public void OnJarPickUp()
+    {
+        GameTasks.StartGameTask("Fish Feeding Task");
+    }
+
+    public void OnFishFed()
+    {
+        GameTasks.AddGameTaskProgress("Fish Feeding Task", 1, 1);
+    }
+
+    
     
 }
