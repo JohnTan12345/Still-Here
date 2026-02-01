@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
         if (gameInfoLoading.IsFaulted)
         {
+            Debug.LogError(gameInfoLoading.Exception);
             LoadingErrorLog(gameInfoLoading.Exception.Message);
         }
 
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitUntil(() => MainMenuUIManager.instance != null);
-        MainMenuUIManager.instance.ReturnToMainPanel();
+        MainMenuUIManager.instance.LoadMainPanel();
     }
 
     private void LoadingErrorLog(string message)
