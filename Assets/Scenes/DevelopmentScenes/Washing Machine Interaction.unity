@@ -2445,7 +2445,7 @@ MonoBehaviour:
   washingMachine: {fileID: 1117663519}
   washingVFX: {fileID: 1244440206}
   endBeepAudio: {fileID: 1262491423}
-  cycleDuration: 5
+  cycleDuration: 20
 --- !u!54 &900203208
 Rigidbody:
   m_ObjectHideFlags: 0
