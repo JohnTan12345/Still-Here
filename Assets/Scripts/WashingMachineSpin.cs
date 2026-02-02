@@ -9,7 +9,7 @@ public class WashingMachineSpin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Only affect laundry objects
-        if (!other.CompareTag("Laundry"))
+        if (!other.CompareTag("laundry"))
             return;
 
         Rigidbody rb = other.GetComponent<Rigidbody>();
