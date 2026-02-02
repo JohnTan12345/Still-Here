@@ -5,34 +5,37 @@ public class WashingMachineButton : MonoBehaviour
 {
     public WashingMachineSpin washingMachine;
     public ParticleSystem washingVFX;
-    public float vfxDuration = 15f;
+    public float cycleDuration = 15f;
 
-    private bool isPressed = false;
+    private bool isRunning = false;
 
-    // Called by XR Simple Interactable → Activated event
     public void OnButtonPressed()
     {
-        if (isPressed)
+        if (isRunning)
             return;
 
-        isPressed = true;
+        StartCoroutine(WashCycle());
+    }
+
+    IEnumerator WashCycle()
+    {
+        isRunning = true;
 
         // Start washing
         washingMachine.StartMachine();
 
-        // Play VFX
         if (washingVFX != null)
-        {
             washingVFX.Play();
-            StartCoroutine(StopVFXAfterTime());
-        }
-    }
 
-    IEnumerator StopVFXAfterTime()
-    {
-        yield return new WaitForSeconds(vfxDuration);
+        // Wait for full cycle
+        yield return new WaitForSeconds(cycleDuration);
 
+        // Stop washing
         if (washingVFX != null)
             washingVFX.Stop();
+
+        washingMachine.StopMachine();
+
+        isRunning = false;
     }
 }

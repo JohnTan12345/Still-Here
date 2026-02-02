@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WashingMachineSpin : MonoBehaviour
@@ -8,7 +9,21 @@ public class WashingMachineSpin : MonoBehaviour
 
     private bool isMachineOn = false;
 
+    // Track which objects are already spinning
+    private HashSet<Rigidbody> spinningLaundry = new HashSet<Rigidbody>();
+
     private void OnTriggerEnter(Collider other)
+    {
+        TryStartSpinning(other);
+    }
+
+    // IMPORTANT: handles laundry already inside when machine turns on
+    private void OnTriggerStay(Collider other)
+    {
+        TryStartSpinning(other);
+    }
+
+    private void TryStartSpinning(Collider other)
     {
         if (!isMachineOn)
             return;
@@ -17,15 +32,17 @@ public class WashingMachineSpin : MonoBehaviour
             return;
 
         Rigidbody rb = other.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            StartCoroutine(SpinLaundry(other.transform, rb));
-        }
+        if (rb == null)
+            return;
+
+        if (spinningLaundry.Contains(rb))
+            return;
+
+        StartCoroutine(SpinLaundry(other.transform, rb));
     }
 
     public void StartMachine()
     {
-        if (isMachineOn) return;
         isMachineOn = true;
     }
 
@@ -36,6 +53,9 @@ public class WashingMachineSpin : MonoBehaviour
 
     IEnumerator SpinLaundry(Transform obj, Rigidbody rb)
     {
+        spinningLaundry.Add(rb);
+
+        // Stop movement
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
@@ -51,6 +71,8 @@ public class WashingMachineSpin : MonoBehaviour
             yield return null;
         }
 
+        // Restore physics
         rb.constraints = originalConstraints;
+        spinningLaundry.Remove(rb);
     }
 }
