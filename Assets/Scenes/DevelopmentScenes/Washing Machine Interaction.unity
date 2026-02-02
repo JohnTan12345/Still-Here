@@ -2444,7 +2444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   washingMachine: {fileID: 1117663519}
   washingVFX: {fileID: 1244440206}
-  vfxDuration: 15
+  cycleDuration: 20
 --- !u!54 &900203208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10059,8 +10059,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1405562160}
-  - {fileID: 1117663517}
   - {fileID: 900203206}
+  - {fileID: 1117663517}
   - {fileID: 1244440207}
   - {fileID: 1938376057}
   - {fileID: 1928335527}
