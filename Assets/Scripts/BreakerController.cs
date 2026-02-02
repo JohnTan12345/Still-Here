@@ -115,4 +115,26 @@ public class BreakerController : MonoBehaviour
         foreach (var light in neonLights) light.intensity = finalIntensity;
         foreach (var mat in neonMats) mat.SetColor("_EmissionColor", glowColor * finalIntensity);
     }
+
+    // --- Game Task Integration ---
+    public void OnOpenDoor()
+    {
+      GameTasks.StartGameTask("Circuit Breaker Task");
+    }
+
+    public void OnFlipSwitch()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 1, 1);
+    }
+
+    public void OnLightFlicker()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 2, 1);
+    }
+
+    public void OnCloseDoor()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 3, 1);
+    }
+
 }
