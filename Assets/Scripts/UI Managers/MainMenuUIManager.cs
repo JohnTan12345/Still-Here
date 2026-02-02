@@ -50,4 +50,15 @@ public class MainMenuUIManager : MonoBehaviour
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
     }
+
+    public void LoadMainPanel()
+    {
+        PreviousRunPanel.SetActive(false);
+        AccountPanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        AccountLoginPanel.SetActive(false);
+        NewGamePanel.SetActive(false);
+
+        ReturnToMainPanel();
+    }
 }

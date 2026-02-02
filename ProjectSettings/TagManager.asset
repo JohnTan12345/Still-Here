@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
-  - FishFood
+  - PlayerHand
+  - TrashBag
   layers:
   - Default
   - TransparentFX
