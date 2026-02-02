@@ -5,15 +5,19 @@ public class WashingMachineButton : MonoBehaviour
 {
     public WashingMachineSpin washingMachine;
     public ParticleSystem washingVFX;
+    public AudioSource endBeepAudio;
+
     public float cycleDuration = 15f;
 
     private bool isRunning = false;
+    private bool hasStartedAtLeastOnce = false;
 
     public void OnButtonPressed()
     {
         if (isRunning)
             return;
 
+        hasStartedAtLeastOnce = true;
         StartCoroutine(WashCycle());
     }
 
@@ -21,20 +25,21 @@ public class WashingMachineButton : MonoBehaviour
     {
         isRunning = true;
 
-        // Start washing
         washingMachine.StartMachine();
 
         if (washingVFX != null)
             washingVFX.Play();
 
-        // Wait for full cycle
         yield return new WaitForSeconds(cycleDuration);
 
-        // Stop washing
         if (washingVFX != null)
             washingVFX.Stop();
 
         washingMachine.StopMachine();
+
+        // EXTRA SAFETY: only play after a real cycle
+        if (hasStartedAtLeastOnce && endBeepAudio != null)
+            endBeepAudio.Play();
 
         isRunning = false;
     }
