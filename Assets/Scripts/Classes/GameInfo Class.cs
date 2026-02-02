@@ -10,6 +10,7 @@ public static class GameInfo
     private static Dictionary<string, List<GameTaskStep>> databaseGameTasklist = new Dictionary<string, List<GameTaskStep>>();
     private static Dictionary<string, List<Vector3>> allObjectsPositions = new Dictionary<string, List<Vector3>>();
 
+    public static bool DataLoaded {get; private set;} = false;
     public static string GetGameVersion() => gameVersion;
     public static Dictionary<string, List<GameTaskStep>> GetGameTaskList() => databaseGameTasklist;
     public static List<Vector3> GetObjectPositions(string objectName) => allObjectsPositions[objectName];
@@ -62,6 +63,7 @@ public static class GameInfo
             allObjectsPositions.Add(objectName.Key, positions);
         }
 
+        DataLoaded = true;
         Debug.Log("Loaded all data");
     }
 }
