@@ -5534,7 +5534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094427001}
   m_Layer: 0
-  m_Name: Point A
+  m_Name: Point A (Fish 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5555,6 +5555,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1132711862
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5241220778304027912, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_Name
+      value: fish (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.592
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.438
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.048182208
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99883854
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 185.523
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708515619165127708, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5241220778304027912, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1132711866}
+  m_SourcePrefab: {fileID: 100100000, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+--- !u!1 &1132711863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5241220778304027912, guid: ff507955c7dc75a49b13062712a511ce, type: 3}
+  m_PrefabInstance: {fileID: 1132711862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1132711866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132711863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0671f6f562945f4095d723ce1a9a28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1637046674}
+  pointB: {fileID: 1444096319}
+  swimSpeed: 0.2
+  turnSpeed: 1
+  reachDistance: 0.05
 --- !u!1 &1137089975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5753,7 +5835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391699957}
   m_Layer: 0
-  m_Name: Point B
+  m_Name: Point B (Fish 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5774,6 +5856,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1444096318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1444096319}
+  m_Layer: 0
+  m_Name: Point B (Fish 2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1444096319
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444096318}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.705, y: 1.197, z: -3.029}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1637046673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1637046674}
+  m_Layer: 0
+  m_Name: Point A (Fish 2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1637046674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637046673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.20236732, z: -0, w: 0.9793097}
+  m_LocalPosition: {x: -6.434, y: 1.592, z: -2.438}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 23.351, z: 0}
 --- !u!1 &1748412097
 GameObject:
   m_ObjectHideFlags: 0
@@ -6325,6 +6469,9 @@ SceneRoots:
   - {fileID: 1137089976}
   - {fileID: 686015325}
   - {fileID: 1977882252}
+  - {fileID: 1132711862}
   - {fileID: 5808869768217159384}
   - {fileID: 1094427001}
+  - {fileID: 1637046674}
+  - {fileID: 1444096319}
   - {fileID: 1391699957}

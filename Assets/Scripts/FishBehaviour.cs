@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FishRandomSwim : MonoBehaviour
+public class FishBehaviour : MonoBehaviour
 {
     public Transform pointA;
     public Transform pointB;
