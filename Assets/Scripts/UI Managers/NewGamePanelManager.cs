@@ -64,13 +64,17 @@ public class NewGamePanelManager : MonoBehaviour
         Debug.Log(taskAmountSlider.maxValue);
         Debug.Log(GameInfo.GetGameTaskList().Count);
         taskAmountSlider.maxValue = GameInfo.GetGameTaskList().Count;
+        ChangeDifficulty(0);
     }
 
     public void OnValueChanged()
     {
-        currentDifficultySetting.taskAmount = (int)taskAmountSlider.value;
-        currentDifficultySetting.forgetFrequency = float.Parse(forgetFrequencyInput.text);
-        currentDifficultySetting.changeTasklistOrder = changeTasklistOrderToggle.isOn;
+        if (difficultyMode == defaultDifficultySettings.Count)
+        {
+            currentDifficultySetting.taskAmount = (int)taskAmountSlider.value;
+            currentDifficultySetting.forgetFrequency = float.Parse(forgetFrequencyInput.text);
+            currentDifficultySetting.changeTasklistOrder = changeTasklistOrderToggle.isOn;
+        }
 
         UpdateUI();
     }
@@ -97,6 +101,7 @@ public class NewGamePanelManager : MonoBehaviour
         }
         else
         {
+            Debug.Log(JsonUtility.ToJson(defaultDifficultySettings[difficultyMode], true));
             SetNewDifficultyPreset(defaultDifficultySettings[difficultyMode]);
             SetCustomDifficultyUIInteractable(false);
         }
@@ -106,6 +111,7 @@ public class NewGamePanelManager : MonoBehaviour
 
     private void SetNewDifficultyPreset(DifficultySetting newDifficultySetting)
     {
+        Debug.Log("Setting new difficulty");
         currentDifficultySetting.name = newDifficultySetting.name;
         currentDifficultySetting.taskAmount = newDifficultySetting.taskAmount;
         currentDifficultySetting.forgetFrequency = newDifficultySetting.forgetFrequency;
@@ -113,6 +119,7 @@ public class NewGamePanelManager : MonoBehaviour
     }
     private void UpdateUI()
     {
+        Debug.Log("Updating UI");
         difficultyText.text = currentDifficultySetting.name;
         taskAmountHeader.text = $"Task Amount: {currentDifficultySetting.taskAmount}";
         taskAmountSlider.value = currentDifficultySetting.taskAmount;

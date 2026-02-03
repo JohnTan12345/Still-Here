@@ -5,7 +5,9 @@ public class MainMenuUIManager : MonoBehaviour
     public static MainMenuUIManager instance = null;
     [Header("Panels")]
     [SerializeField]
-    private GameObject PreviousRunPanel;
+    private GameObject LeaderboardPreviousRunPanel;
+    [SerializeField]
+    private GameObject PreviousRunButton;
     [SerializeField]
     private GameObject AccountPanel;
 
@@ -33,7 +35,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void SwitchPanel(GameObject panel)
     {
-        PreviousRunPanel.SetActive(false);
+        LeaderboardPreviousRunPanel.SetActive(false);
         AccountPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         AccountLoginPanel.SetActive(false);
@@ -44,7 +46,8 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ReturnToMainPanel()
     {
-        PreviousRunPanel.SetActive(ShowPreviousRuns());
+        LeaderboardPreviousRunPanel.SetActive(true);
+        PreviousRunButton.SetActive(ShowPreviousRuns());
         AccountPanel.SetActive(true);
         MainMenuPanel.SetActive(true);
         AccountLoginPanel.SetActive(false);
@@ -53,7 +56,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void LoadMainPanel()
     {
-        PreviousRunPanel.SetActive(false);
+        LeaderboardPreviousRunPanel.SetActive(false);
         AccountPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         AccountLoginPanel.SetActive(false);
