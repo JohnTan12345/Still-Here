@@ -1,8 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AccountPanelManager : MonoBehaviour
 {
+    public static AccountPanelManager instance;
+
     [SerializeField]
     private GameObject notLoggedInPanel;
     [SerializeField]
@@ -10,11 +13,22 @@ public class AccountPanelManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI loggedInMessage;
+    
+    public UnityEvent onPlayerLogin;
+
+    void Start()
+    {
+        if (instance != this)
+        {
+            instance = this;
+        }  
+    }
 
     void OnEnable()
     {
         if (DatabaseAccountManager.isAuthenticated())
         {
+            onPlayerLogin.Invoke();
             notLoggedInPanel.SetActive(false);
             loggedInPanel.SetActive(true);
 

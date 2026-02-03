@@ -287,7 +287,7 @@ RectTransform:
   m_Father: {fileID: 447704800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1352,6 +1352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182490281}
+  - component: {fileID: 182490282}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1373,11 +1374,35 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2019454751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000041412}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &182490282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182490280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 780, y: 100}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 1
 --- !u!1 &188167255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,7 +1510,6 @@ MonoBehaviour:
   MainMenuPanel: {fileID: 2095872539}
   AccountLoginPanel: {fileID: 1726148414}
   NewGamePanel: {fileID: 1658018791}
-  accountPanelManager: {fileID: 1170247884}
 --- !u!95 &207138091
 Animator:
   serializedVersion: 7
@@ -1939,7 +1963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &274422576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3083,10 +3107,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 979607420}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 653458004}
+        m_TargetAssemblyTypeName: LeaderboardPrevRunsPanelManager, Assembly-CSharp
+        m_MethodName: NextRunPage
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3094,18 +3118,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 274422575}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &339088585
 MonoBehaviour:
@@ -3975,7 +3987,7 @@ MonoBehaviour:
   m_Content: {fileID: 182490281}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -4718,7 +4730,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 482356281}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 653458004}
+        m_TargetAssemblyTypeName: LeaderboardPrevRunsPanelManager, Assembly-CSharp
+        m_MethodName: PreviousRunPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &482356281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5367,6 +5391,15 @@ MonoBehaviour:
   leaderboardErrorMessage: {fileID: 651362405}
   placementGameObjectPrefab: {fileID: 6553431624165980885, guid: 196c6e37bb2ab1f448db09b2898c8f1b, type: 3}
   placementGameObjectParent: {fileID: 16108933}
+  previousRunHeader: {fileID: 316100263}
+  previousRunTimeText: {fileID: 435872797}
+  tasklistFrame: {fileID: 182490280}
+  previousButtonObject: {fileID: 482356278}
+  nextButtonObject: {fileID: 339088582}
+  recentButtonObject: {fileID: 941001859}
+  viewPreviousRunsButtonObject: {fileID: 1815413036}
+  viewLeaderboardButtonObject: {fileID: 212773556}
+  previousTaskUIPrefab: {fileID: 3269497595689663894, guid: 8770b7fa66cc33f45bc4a3c4bd88caf7, type: 3}
 --- !u!1 &684340704
 GameObject:
   m_ObjectHideFlags: 0
@@ -6345,10 +6378,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 979607420}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 653458004}
+        m_TargetAssemblyTypeName: LeaderboardPrevRunsPanelManager, Assembly-CSharp
+        m_MethodName: ViewRecentRunPage
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6356,18 +6389,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 274422575}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &941001862
 MonoBehaviour:
@@ -6576,7 +6597,7 @@ RectTransform:
   m_Father: {fileID: 2064906956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6635,7 +6656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &979607421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7106,9 +7127,9 @@ RectTransform:
   m_Father: {fileID: 434519901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1149633411
 MonoBehaviour:
@@ -7614,6 +7635,9 @@ MonoBehaviour:
   notLoggedInPanel: {fileID: 1681279013}
   loggedInPanel: {fileID: 290849735}
   loggedInMessage: {fileID: 1510305096}
+  onPlayerLogin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1249617917
 GameObject:
   m_ObjectHideFlags: 0
@@ -11786,7 +11810,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1815413039}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 653458004}
+        m_TargetAssemblyTypeName: LeaderboardPrevRunsPanelManager, Assembly-CSharp
+        m_MethodName: ViewPreviousRunPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1815413039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12347,6 +12383,7 @@ GameObject:
   - component: {fileID: 2019454754}
   - component: {fileID: 2019454753}
   - component: {fileID: 2019454752}
+  - component: {fileID: 2019454755}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -12370,9 +12407,9 @@ RectTransform:
   m_Father: {fileID: 434519901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: -17}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2019454752
 MonoBehaviour:
@@ -12425,6 +12462,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019454750}
   m_CullTransparentMesh: 1
+--- !u!114 &2019454755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019454750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &2028451191
 GameObject:
   m_ObjectHideFlags: 0
@@ -12851,9 +12912,9 @@ RectTransform:
   m_Father: {fileID: 434519901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 20}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2114849509
 MonoBehaviour:

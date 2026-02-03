@@ -21,8 +21,6 @@ public class MainMenuUIManager : MonoBehaviour
     private GameObject AccountLoginPanel;
     [SerializeField]
     private GameObject NewGamePanel;
-    [SerializeField]
-    private AccountPanelManager accountPanelManager;
 
     private bool gameLoaded = false;
 
@@ -72,6 +70,8 @@ public class MainMenuUIManager : MonoBehaviour
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
 
+        Debug.Log(JsonUtility.ToJson(Player.currentPlayer, true));
+        Debug.Log(ShowPreviousRuns());
         ReturnToMainPanel();
 
         animator.Play("Loading");
