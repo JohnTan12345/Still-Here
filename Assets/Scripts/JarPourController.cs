@@ -5,6 +5,8 @@ public class JarPourController : MonoBehaviour
     public Transform pourPoint;
     public ParticleSystem pourParticles;
 
+    public GameObject fishFoodPrefab;
+
     [Header("Pour Settings")]
     public float pourAngle = 60f;
 
@@ -48,6 +50,8 @@ public class JarPourController : MonoBehaviour
     {
         if (!pourParticles.isPlaying)
             pourParticles.Play();
+
+        GameObject newFishFood = Instantiate(fishFoodPrefab, pourPoint.position, pourPoint.rotation);
     }
 
     void StopPouring()
