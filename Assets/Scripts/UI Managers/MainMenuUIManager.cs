@@ -3,6 +3,9 @@ using UnityEngine;
 public class MainMenuUIManager : MonoBehaviour
 {
     public static MainMenuUIManager instance = null;
+    
+    private Animator animator;
+
     [Header("Panels")]
     [SerializeField]
     private GameObject LeaderboardPreviousRunPanel;
@@ -21,11 +24,14 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField]
     private AccountPanelManager accountPanelManager;
 
+    private bool gameLoaded = false;
+
     private bool ShowPreviousRuns() => DatabaseAccountManager.isAuthenticated() && Player.currentPlayer.playerData.PreviousRuns.Count > 0;
 
     void Awake()
     {
         instance = this;
+        animator = GetComponent<Animator>();
     }
 
     void OnDestroy()
@@ -35,8 +41,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void SwitchPanel(GameObject panel)
     {
-        LeaderboardPreviousRunPanel.SetActive(false);
-        AccountPanel.SetActive(false);
+        animator.Play("From main");
         MainMenuPanel.SetActive(false);
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
@@ -46,9 +51,14 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ReturnToMainPanel()
     {
-        LeaderboardPreviousRunPanel.SetActive(true);
+        if (gameLoaded)
+        {
+            animator.Play("Back to main");
+        } else
+        {
+            gameLoaded = true;
+        }
         PreviousRunButton.SetActive(ShowPreviousRuns());
-        AccountPanel.SetActive(true);
         MainMenuPanel.SetActive(true);
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
@@ -63,5 +73,7 @@ public class MainMenuUIManager : MonoBehaviour
         NewGamePanel.SetActive(false);
 
         ReturnToMainPanel();
+
+        animator.Play("Loading");
     }
 }
