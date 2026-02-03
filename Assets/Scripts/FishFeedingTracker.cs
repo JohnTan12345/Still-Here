@@ -46,6 +46,7 @@ public class FishFeedingChecker : MonoBehaviour
     {
         completed = true;
         feeding = false;
+        OnFishFed();
 
         if (successBubbles != null)
         {
@@ -53,5 +54,17 @@ public class FishFeedingChecker : MonoBehaviour
         }
 
         Debug.Log("Fish have been fed!");
+    }
+
+    public void OnJarPickUp()
+    {
+        Debug.Log("Jar picked up, starting fish feeding task.");
+        GameTasks.StartGameTask("Feed fishes");
+    }
+
+    public void OnFishFed()
+    {
+        Debug.Log("Fish fed, adding progress to fish feeding task.");
+        GameTasks.AddGameTaskProgress("Feed fishes", 1, 1);
     }
 }

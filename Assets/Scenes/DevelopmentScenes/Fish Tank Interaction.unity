@@ -6492,6 +6492,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1482349323}
     m_Modifications:
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1753671734}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnJarPickUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FishFeedingChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 711042312851294864, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
       propertyPath: m_Name
       value: fish food jar
