@@ -59,7 +59,7 @@ public class PlayerData
 [System.Serializable]
 public class Run
 {
-    public float Time = 0;
+    public int Time = 0;
     public List<TaskInfo> TaskList = new List<TaskInfo>();
 }
 [System.Serializable]

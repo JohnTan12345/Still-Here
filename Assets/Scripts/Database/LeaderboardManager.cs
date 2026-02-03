@@ -17,7 +17,12 @@ public static class LeaderboardManager
             return null;
         } else
         {
-            leaderboard = JsonUtility.FromJson<List<LeaderboardInfo>>(result.snapshot.GetRawJsonValue());
+            leaderboard = new List<LeaderboardInfo>();
+            foreach(var child in result.snapshot.Children)
+            {
+                LeaderboardInfo leaderboardInfo = JsonUtility.FromJson<LeaderboardInfo>(child.GetRawJsonValue());
+                leaderboard.Add(leaderboardInfo);
+            }
             return leaderboard;
         }
     }
@@ -30,7 +35,7 @@ public static class LeaderboardManager
             return;
         }
 
-        float runTime = currentRun.Time;
+        int runTime = currentRun.Time;
         int leaderboardPosition = -1;
 
         for (int i = 0; i < leaderboard.Count; i++)
@@ -73,5 +78,5 @@ public static class LeaderboardManager
 public class LeaderboardInfo
 {
     public string Username;
-    public float Time;
+    public int Time;
 }
