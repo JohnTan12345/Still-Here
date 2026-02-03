@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -122,5 +122,5 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("This object does not exist inside the list");
         }
     }
-}
+}*/
  

@@ -53,7 +53,7 @@ public class WashingMachineSpin : MonoBehaviour
 
     IEnumerator SpinLaundry(Transform obj, Rigidbody rb)
     {
-        GameTasks.AddGameTaskProgress("WashingMachineTask", 2, 1);
+        //GameTasks.AddGameTaskProgress("WashingMachineTask", 2, 1);
 
         spinningLaundry.Add(rb);
 
