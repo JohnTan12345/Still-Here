@@ -4,40 +4,54 @@ using System.Collections;
 public class BreakerController : MonoBehaviour
 {
     [Header("Lever Settings")]
-    public Transform leverTransform;     // assign lever object
-    public float flipAngle = -45f;       // OFF position
-    public float resetAngle = 45f;       // ON position
-    public float flipSpeed = 3f;         // rotation speed
+    public Transform leverTransform;
+    public float flipAngle = -45f;
+    public float resetAngle = 45f;
+    public float flipSpeed = 3f;
 
     [Header("Neon Settings")]
-    public Light[] neonLights;           // assign multiple lights
-    public Renderer[] neonRenderers;     // assign multiple renderers
+    public Light[] neonLights;
+    public Renderer[] neonRenderers;
     public Color glowColor = Color.yellow;
     public float finalIntensity = 5f;
 
     [Header("Audio Settings")]
-    public AudioSource audioSource;
+    public AudioSource audioSource;          // normal snap sound
     public AudioClip snapSound;
+    public AudioSource shortCircuitSource;   // short circuit sound
+    public AudioClip shortCircuitClip;
+
+    [Header("VFX Settings")]
+    public ParticleSystem sparkVFX;
+
+    [Header("Breaker Settings")]
+    public int maxFlipsBeforeBreak = 3;
 
     private bool breakerOn = false;
+    private bool breakerBroken = false;
+    private int flipCount = 0;
+
     private Material[] neonMats;
     private Quaternion offRotation;
     private Quaternion onRotation;
 
     void Start()
     {
-        // Lever setup
+        // Initialize lever rotations
         offRotation = Quaternion.Euler(flipAngle, 0, 0);
         onRotation = Quaternion.Euler(resetAngle, 0, 0);
         if (leverTransform != null)
             leverTransform.localRotation = offRotation;
-
-        // Neon setup
+        
+        // Cache neon materials
         neonMats = new Material[neonRenderers.Length];
+
+        // Assign materials
         for (int i = 0; i < neonRenderers.Length; i++)
         {
             neonMats[i] = neonRenderers[i].material;
         }
+     
         TurnOff();
     }
 
@@ -51,9 +65,19 @@ public class BreakerController : MonoBehaviour
 
     private void ToggleBreaker()
     {
-        breakerOn = !breakerOn;
+        if (breakerBroken) return; // no toggling if broken
 
-        // Play sound
+        breakerOn = !breakerOn;
+        flipCount++;
+
+        // Check if breaker should break
+        if (flipCount >= maxFlipsBeforeBreak)
+        {
+            BreakBreaker();
+            return;
+        }
+
+        // Play snap sound
         if (audioSource && snapSound)
             audioSource.PlayOneShot(snapSound);
 
@@ -67,6 +91,27 @@ public class BreakerController : MonoBehaviour
         // Neon flicker
         if (breakerOn) StartCoroutine(FlickerRoutine());
         else TurnOff();
+    }
+
+    private void BreakBreaker()
+    {
+        breakerBroken = true;
+
+        // Stop any flicker
+        StopAllCoroutines();
+        TurnOff();
+
+        // Play sparks VFX
+        if (sparkVFX != null)
+            sparkVFX.Play();
+
+        // Play short circuit sound
+        if (shortCircuitSource && shortCircuitClip)
+            shortCircuitSource.PlayOneShot(shortCircuitClip);
+
+        // Optional: force lever to "stuck" position
+        if (leverTransform != null)
+            leverTransform.localRotation = offRotation;
     }
 
     // --- Lever Animation ---
@@ -114,6 +159,32 @@ public class BreakerController : MonoBehaviour
 
         foreach (var light in neonLights) light.intensity = finalIntensity;
         foreach (var mat in neonMats) mat.SetColor("_EmissionColor", glowColor * finalIntensity);
+    }
+
+    // --- Game Task Integration ---
+    public void OnOpenDoor()
+    {
+      GameTasks.StartGameTask("Circuit Breaker Task");
+    }
+
+    public void OnFlipSwitch()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 1, 1);
+    }
+
+    public void OnLightFlicker()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 2, 1);
+    }
+
+    public void OnCloseDoor()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 3, 1);
+    }
+
+    public void OnShortCircuit()
+    {
+      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 4, 1);
     }
 
 }
