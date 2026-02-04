@@ -8,8 +8,6 @@ public static class GameTasks
     private static List<string> gameTasksOrder;
     public static List<string> GetGameTasksOrder() => gameTasksOrder;
     public static Dictionary<string, GameTask> GetGameTasks() => gameTasks;
-    public static void AddGameTaskProgress(string gameTaskName, int stepNumber, float progresesAmount) => gameTasks[gameTaskName].AddTaskProgress(stepNumber, progresesAmount);
-    public static void StartGameTask(string gameTaskName) => gameTasks[gameTaskName].StartTask();
 
     public static void CreateGameTasks(int taskAmount)
     {
@@ -89,6 +87,38 @@ public static class GameTasks
             Debug.Log("Finished randomizing order");
         }
     }
+
+    public static void StartGameTask(string gameTaskName)
+    {
+        try
+        {
+            gameTasks[gameTaskName].StartTask();
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("Not part of the tasklist");
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogError(exception);
+        }
+    }
+
+    public static void AddGameTaskProgress(string gameTaskName, int stepNumber, float progresesAmount)
+    {
+        try
+        {
+            gameTasks[gameTaskName].AddTaskProgress(stepNumber, progresesAmount);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("Not part of the tasklist");
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogError(exception);
+        }
+    } 
 }
 
 public class GameTask

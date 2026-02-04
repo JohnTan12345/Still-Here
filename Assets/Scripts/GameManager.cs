@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
 
+    [Header("Testing Parameters")]
+    public bool testing;
+    public int taskAmount_test = 7;
+    public int forgetFrequency_test = 60;
+    public bool changeTasklistOrder_test = true;
+
     // Game Data
     private bool loadingGame = false;
     private bool activeGame = false;
@@ -69,6 +75,16 @@ public class GameManager : MonoBehaviour
             {
                 MainMenuUIManager.Instance.LoadMainPanel();
             }
+
+        if (testing)
+        {
+            DifficultySetting difficultySetting = new DifficultySetting();
+            difficultySetting.taskAmount = taskAmount_test;
+            difficultySetting.forgetFrequency = forgetFrequency_test;
+            difficultySetting.changeTasklistOrder = changeTasklistOrder_test;
+
+            StartGame(difficultySetting);
+        }
     }
 
     public IEnumerator StartGame(DifficultySetting difficultySetting)
@@ -88,7 +104,12 @@ public class GameManager : MonoBehaviour
         time = 0;
         
         activeGame = true;
-        SceneManager.LoadScene(1);
+
+        if (!testing)
+        {
+            SceneManager.LoadScene(1);
+        }
+        
         loadingGame = false;
         timeKeeper = StartCoroutine(StartTimer());
         forgetTimer = StartCoroutine(StartForgetTImer());
