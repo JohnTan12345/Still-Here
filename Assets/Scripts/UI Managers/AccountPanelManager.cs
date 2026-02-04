@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class AccountPanelManager : MonoBehaviour
 {
-    public static AccountPanelManager instance;
+    public static AccountPanelManager Instance {get; set;}
 
     [SerializeField]
     private GameObject notLoggedInPanel;
@@ -17,9 +17,9 @@ public class AccountPanelManager : MonoBehaviour
 
     void Start()
     {
-        if (instance != this)
+        if (Instance != this)
         {
-            instance = this;
+            Instance = this;
         }  
     }
 

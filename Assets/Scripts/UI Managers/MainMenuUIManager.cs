@@ -68,9 +68,7 @@ public class MainMenuUIManager : MonoBehaviour
         MainMenuPanel.SetActive(false);
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
-
-        Debug.Log(JsonUtility.ToJson(Player.currentPlayer, true));
-        Debug.Log(ShowPreviousRuns());
+        
         ReturnToMainPanel();
 
         animator.Play("Loading");

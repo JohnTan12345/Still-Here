@@ -79,16 +79,18 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
             }
         }
 
-        yield return new WaitUntil(() => AccountPanelManager.instance != null);
-        if (DatabaseAccountManager.isAuthenticated())
-        {
-            LoadPlayerPreviousRuns();
-        }
-        AccountPanelManager.instance.onAccountPanelEnable.AddListener(LoadPlayerPreviousRuns);
+        Debug.LogWarning(AccountPanelManager.Instance != null);
+
+        AccountPanelManager.Instance.onAccountPanelEnable.AddListener(LoadPlayerPreviousRuns);
     }
 
     private void LoadPlayerPreviousRuns()
     {
+        if (!DatabaseAccountManager.isAuthenticated())
+        {
+            Debug.Log("No user logged in");
+            return;
+        }
         Debug.Log("Loading player data");
         currentRunPage = 0;
 

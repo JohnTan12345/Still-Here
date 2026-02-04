@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,13 +8,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
 
-    // Game Settings
-    private int taskAmount = 4;
-
     // Game Data
+    private bool loadingGame = false;
     private bool activeGame = false;
     private int time = 0;
-    private Coroutine timer;
+    private Coroutine timeKeeper;
+    private Coroutine forgetTimer;
+
+    private DifficultySetting gameSettings;
 
     // Game Data Accessors
     public int GetTime() => time;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         {
             if (Instance != null)
             {
-                Destroy(Instance);
+                Destroy(this);
             }
 
             Instance = this;
@@ -71,21 +71,33 @@ public class GameManager : MonoBehaviour
             }
     }
 
-    public void StartGame()
+    public IEnumerator StartGame(DifficultySetting difficultySetting)
     {
-        GameTasks.CreateGameTasks(taskAmount);
+        if (loadingGame)
+        {
+            yield break;
+        } else
+        {
+            loadingGame = true;
+        }
+        
+        gameSettings = difficultySetting;
+        GameTasks.CreateGameTasks(difficultySetting.taskAmount);
+        yield return new WaitUntil(() => GameTasks.GetGameTasks() != null || GameTasks.GetGameTasks().Count != 0);
+        Debug.Log("Tasks Created Successfully");
         time = 0;
-
-        SceneManager.LoadScene(1);
+        
         activeGame = true;
-        timer = StartCoroutine(StartTimer());
-        // Task UI Manager start
+        SceneManager.LoadScene(1);
+        loadingGame = false;
+        timeKeeper = StartCoroutine(StartTimer());
+        forgetTimer = StartCoroutine(StartForgetTImer());
     }
 
     public void EndGame()
     {
         activeGame = false;
-        timer = null;
+        timeKeeper = null;
 
         // Show end game UI
         SceneManager.LoadScene(0);
@@ -97,6 +109,22 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1);
             time++;
+        }
+    }
+
+    private IEnumerator StartForgetTImer()
+    {
+        int forgetTime = 0;
+        while (activeGame)
+        {
+            yield return new WaitForSecondsRealtime(1);
+            forgetTime++;
+
+            if (forgetTime >= gameSettings.forgetFrequency)
+            {
+                GameTasks.ForgetCompletedGameTasks(Random.Range(1, GameTasks.GetGameTasks().Count - 1), gameSettings.changeTasklistOrder);
+                forgetTime = 0;
+            }
         }
     }
     

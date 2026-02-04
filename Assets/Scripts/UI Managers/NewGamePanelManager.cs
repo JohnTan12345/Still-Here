@@ -21,6 +21,8 @@ public class NewGamePanelManager : MonoBehaviour
     private TMP_InputField forgetFrequencyInput;
     [SerializeField]
     private Toggle changeTasklistOrderToggle;
+    [SerializeField]
+    private Button startGameButton;
 
     void Start()
     {
@@ -55,6 +57,7 @@ public class NewGamePanelManager : MonoBehaviour
 
         SetNewDifficultyPreset(defaultDifficultySettings[0]);
         StartCoroutine(LoadValues());
+        startGameButton.onClick.AddListener(StartGame);
     }
 
     public IEnumerator LoadValues()
@@ -133,6 +136,11 @@ public class NewGamePanelManager : MonoBehaviour
         forgetFrequencyInput.interactable = value;
         forgetFrequencyInput.interactable = value;
         changeTasklistOrderToggle.interactable = value;
+    }
+
+    private void StartGame()
+    {
+        StartCoroutine(GameManager.Instance.StartGame(currentDifficultySetting));
     }
 }
 
