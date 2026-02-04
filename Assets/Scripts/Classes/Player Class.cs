@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player
 {
-    public static Player currentPlayer = null;
+    public static Player currentPlayer {get; private set;} = null;
     public PlayerData playerData = new PlayerData();
     public Run currentRun;
     public bool isLoaded() => playerData != null;
@@ -60,7 +60,7 @@ public class PlayerData
 public class Run
 {
     public int Time = 0;
-    public List<TaskInfo> TaskList = new List<TaskInfo>();
+    public List<TaskInfo> Tasklist = new List<TaskInfo>();
 }
 [System.Serializable]
 public class TaskInfo

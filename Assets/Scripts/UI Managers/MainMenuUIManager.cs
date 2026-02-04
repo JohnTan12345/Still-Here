@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    public static MainMenuUIManager instance = null;
+    public static MainMenuUIManager Instance {get; private set;}
+    
+    private Animator animator;
+
     [Header("Panels")]
     [SerializeField]
     private GameObject LeaderboardPreviousRunPanel;
@@ -18,25 +21,24 @@ public class MainMenuUIManager : MonoBehaviour
     private GameObject AccountLoginPanel;
     [SerializeField]
     private GameObject NewGamePanel;
-    [SerializeField]
-    private AccountPanelManager accountPanelManager;
+
+    private bool gameLoaded = false;
 
     private bool ShowPreviousRuns() => DatabaseAccountManager.isAuthenticated() && Player.currentPlayer.playerData.PreviousRuns.Count > 0;
 
     void Awake()
     {
-        instance = this;
-    }
-
-    void OnDestroy()
-    {
-        instance = null;
+        if (Instance != this)
+        {
+            Instance = this;
+        }
+        
+        animator = GetComponent<Animator>();
     }
 
     public void SwitchPanel(GameObject panel)
     {
-        LeaderboardPreviousRunPanel.SetActive(false);
-        AccountPanel.SetActive(false);
+        animator.Play("From main");
         MainMenuPanel.SetActive(false);
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
@@ -46,9 +48,14 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ReturnToMainPanel()
     {
-        LeaderboardPreviousRunPanel.SetActive(true);
+        if (gameLoaded)
+        {
+            animator.Play("Back to main");
+        } else
+        {
+            gameLoaded = true;
+        }
         PreviousRunButton.SetActive(ShowPreviousRuns());
-        AccountPanel.SetActive(true);
         MainMenuPanel.SetActive(true);
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
@@ -62,6 +69,10 @@ public class MainMenuUIManager : MonoBehaviour
         AccountLoginPanel.SetActive(false);
         NewGamePanel.SetActive(false);
 
+        Debug.Log(JsonUtility.ToJson(Player.currentPlayer, true));
+        Debug.Log(ShowPreviousRuns());
         ReturnToMainPanel();
+
+        animator.Play("Loading");
     }
 }

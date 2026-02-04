@@ -35,7 +35,7 @@ public static class DatabaseAccountManager
         {
             Debug.Log($"Something went wrong.\nException Source: Firebase\nException: {firebaseException.Message}");
             accountResult.faulted = true;
-            accountResult.errorMessage = FirebaseAccountErrorHandler(firebaseException);
+            accountResult.errorMessage = FirebaseAccountErrorHandler(false, firebaseException);
             
         }
 
@@ -54,7 +54,7 @@ public static class DatabaseAccountManager
         {
             Debug.Log($"Something went wrong.\nException Source: Firebase\nException: {firebaseException.Message}");
             accountResult.faulted = true;
-            accountResult.errorMessage = FirebaseAccountErrorHandler(firebaseException);
+            accountResult.errorMessage = FirebaseAccountErrorHandler(true, firebaseException);
         }
 
         return accountResult;
@@ -65,11 +65,87 @@ public static class DatabaseAccountManager
         AuthenticationDatabase.SignOut();
     }
 
-    private static string FirebaseAccountErrorHandler(FirebaseException firebaseException)
+    private static string FirebaseAccountErrorHandler(bool loginStep, FirebaseException firebaseException)
     {
         string errorMessage = "";
         AuthError authError = (AuthError)firebaseException.ErrorCode;
-        // Deal with auth error messages later
+        
+        switch (authError)
+        {
+            case AuthError.Failure:
+            {
+                if (loginStep)
+                    {
+                        errorMessage = "Email or password is incorrect";
+                    }
+                    else
+                    {
+                        errorMessage = "Account exists, please login instead";
+                    }
+                break;
+            }
+            case AuthError.InvalidCredential:
+            {
+                errorMessage = "Invalid login method, try another method";
+                break;
+            }
+            case AuthError.UserDisabled:
+            {
+                errorMessage = "Your account is disabled";
+                break;
+            }
+            case AuthError.AccountExistsWithDifferentCredentials:
+            {
+                errorMessage = "Account exists with another login method, try that method instead";
+                break;
+            }
+            case AuthError.OperationNotAllowed:
+            {
+                errorMessage = "Operation not allowed";
+                break;
+            }
+            case AuthError.EmailAlreadyInUse:
+            {
+                errorMessage = "Account exists, please login instead";
+                break;
+            }
+            case AuthError.CredentialAlreadyInUse:
+            {
+                errorMessage = "Account exists, please login instead";
+                break;
+            }
+            case AuthError.TooManyRequests:
+            {
+                errorMessage = "Too many requests made, please try again later";
+                break;
+            }
+            case AuthError.UserNotFound:
+            {
+                errorMessage = "Account does not exist";
+                break;
+            }
+            case AuthError.WeakPassword:
+            {
+                errorMessage = "Password must be at least 8 characters long";
+                break;
+            }
+            case AuthError.MissingEmail:
+            {
+                errorMessage = "Please enter an email";
+                break;
+            }
+            case AuthError.MissingPassword:
+            {
+                errorMessage = "Please enter a password";
+                break;
+            }
+            default:
+            {
+                errorMessage = $"Something went wrong. Please report this to the developers: Login Error Code: {firebaseException.ErrorCode}";
+                break;
+            }
+        }
+        
         return errorMessage;
     }
 }
