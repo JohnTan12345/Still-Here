@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class tasktest : MonoBehaviour
 {
-    public void TakeDirtyClothes()
+   public void TakeDirtyClothes()
     {
-        GameTask.StartGameTask("Take Dirty Clothes to Washing Machine");
-   }
+        GameTasks.AddGameTaskProgress("Take Dirty Clothes to Washing Machine", 0, 1);
+    }
    public void LoadWashingMachine()
-   {
-        GameTask.AddGameTaskProgress("Load Washing Machine with Dirty Clothes", 1, 1);
+   { 
+        GameTasks.AddGameTaskProgress("Load Washing Machine with Dirty Clothes", 1, 1);
+   }
+
+   public void StartWashingMachine()
+    {
+       GameTasks.AddGameTaskProgress("Start Washing Machine", 2, 1);
     }
 
-    public void StartWashingMachine()
+   public void UnloadWashingMachine()
     {
-       GameTask.AddGameTaskProgress("Start Washing Machine", 2, 1);
-   }
-
-    public void UnloadWashingMachine()
-    {
-        GameTask.AddGameTaskProgress("Unload Washing Machine", 3, 1);
+        GameTasks.AddGameTaskProgress("Unload Washing Machine", 3, 1);
     }
 }
