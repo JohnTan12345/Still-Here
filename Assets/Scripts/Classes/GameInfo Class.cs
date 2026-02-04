@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -67,4 +67,3 @@ public static class GameInfo
         Debug.Log("Loaded all data");
     }
 }
-*/

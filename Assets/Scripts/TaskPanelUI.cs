@@ -1,4 +1,4 @@
-/*using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,4 +86,3 @@ public class TaskPanelUI : MonoBehaviour
         progressBar.transform.GetChild(0).localScale = new Vector3(gameTask.CurrentProgress/gameTask.MaxProgress, 1, 1);
     }
 }
-*/

@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 
 public class FishFeedingChecker : MonoBehaviour
 {
@@ -68,4 +68,4 @@ public class FishFeedingChecker : MonoBehaviour
         GameTasks.AddGameTaskProgress("Feed fishes", 1, 1);
     }
 }
-*/
+

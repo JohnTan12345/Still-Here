@@ -24,7 +24,7 @@ public class WashingMachineButton : MonoBehaviour
     IEnumerator WashCycle()
     {
         isRunning = true;
-        //GameTasks.AddGameTaskProgress("Laundry", 2, 1);
+        GameTasks.AddGameTaskProgress("Laundry", 2, 1);
 
         washingMachine.StartMachine();
 
