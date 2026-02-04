@@ -21,7 +21,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI previousRunTimeText;
     [SerializeField]
-    private GameObject tasklistFrame;
+    private GameObject tasklistPanel;
     [SerializeField]
     private GameObject previousButtonObject;
     [SerializeField]
@@ -35,6 +35,9 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
     [SerializeField]
     private GameObject previousTaskUIPrefab;
 
+    private GameObject tasklistViewport;
+    private GameObject tasklistFrameCopy;
+    private GameObject tasklistFrame;
     private int currentRunPage;
     private int totalPages;
 
@@ -46,6 +49,9 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         viewPreviousRunsButtonObject.SetActive(true);
         viewLeaderboardButtonObject.SetActive(true);
         StartCoroutine(LoadLeaderboard());
+
+        tasklistViewport = tasklistPanel.transform.Find("Viewport").gameObject;
+        tasklistFrameCopy = Instantiate(tasklistViewport.transform.GetChild(0).gameObject);
     }
 
     private IEnumerator LoadLeaderboard()
@@ -78,11 +84,12 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         {
             LoadPlayerPreviousRuns();
         }
-        AccountPanelManager.instance.onPlayerLogin.AddListener(LoadPlayerPreviousRuns);
+        AccountPanelManager.instance.onAccountPanelEnable.AddListener(LoadPlayerPreviousRuns);
     }
 
     private void LoadPlayerPreviousRuns()
     {
+        Debug.Log("Loading player data");
         currentRunPage = 0;
 
         List<Run> previousRuns = Player.currentPlayer.playerData.PreviousRuns;
@@ -98,9 +105,9 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
                 viewPreviousRunsButtonObject.GetComponent<Button>().interactable = true;
                 totalPages = previousRuns.Count - 1;
             }
-        }
 
-        UpdatePreviousRunPanel(true);
+            UpdatePreviousRunPanel(true);
+        }
     }
 
     public void NextRunPage()
@@ -178,11 +185,9 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
             previousRunTimeText.text = $"Time: 00:{(previousRunTime >= 10 ? previousRunTime : "0" + previousRunTime.ToString())}";
         }
 
-        // Needs fixing
-        for (int i = 0; i < tasklistFrame.transform.childCount; i++)
-        {
-            tasklistFrame.transform.GetChild(i).parent = null;
-        }
+        Destroy(tasklistViewport.transform.GetChild(0).gameObject);
+        tasklistFrame = Instantiate(tasklistFrameCopy, tasklistViewport.transform);
+        tasklistPanel.GetComponent<ScrollRect>().content = tasklistFrame.GetComponent<RectTransform>();
 
         foreach (TaskInfo task in Player.currentPlayer.playerData.PreviousRuns[currentRunPage].Tasklist)
         {

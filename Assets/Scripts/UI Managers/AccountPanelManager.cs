@@ -10,11 +10,10 @@ public class AccountPanelManager : MonoBehaviour
     private GameObject notLoggedInPanel;
     [SerializeField]
     private GameObject loggedInPanel;
-
     [SerializeField]
     private TextMeshProUGUI loggedInMessage;
     
-    public UnityEvent onPlayerLogin;
+    public UnityEvent onAccountPanelEnable;
 
     void Start()
     {
@@ -28,7 +27,6 @@ public class AccountPanelManager : MonoBehaviour
     {
         if (DatabaseAccountManager.isAuthenticated())
         {
-            onPlayerLogin.Invoke();
             notLoggedInPanel.SetActive(false);
             loggedInPanel.SetActive(true);
 
@@ -39,6 +37,8 @@ public class AccountPanelManager : MonoBehaviour
             notLoggedInPanel.SetActive(true);
             loggedInPanel.SetActive(false);
         }
+
+        onAccountPanelEnable.Invoke();
     }
 
     public void OnSignOut()
@@ -46,6 +46,5 @@ public class AccountPanelManager : MonoBehaviour
         DatabaseAccountManager.SignOutAccount();
         notLoggedInPanel.SetActive(true);
         loggedInPanel.SetActive(false);
-        MainMenuUIManager.instance.ReturnToMainPanel();
     }
 }

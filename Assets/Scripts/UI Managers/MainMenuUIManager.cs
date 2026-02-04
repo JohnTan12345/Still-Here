@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    public static MainMenuUIManager instance = null;
+    public static MainMenuUIManager Instance {get; private set;}
     
     private Animator animator;
 
@@ -28,13 +28,12 @@ public class MainMenuUIManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (Instance != this)
+        {
+            Instance = this;
+        }
+        
         animator = GetComponent<Animator>();
-    }
-
-    void OnDestroy()
-    {
-        instance = null;
     }
 
     public void SwitchPanel(GameObject panel)

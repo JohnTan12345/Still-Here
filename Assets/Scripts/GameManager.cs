@@ -7,22 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager GetInstance() => instance;
-
-    [Header("Main Menu Error Logger")]
-    [SerializeField]
-    private GameObject loadingErrorLogObject;
-    [SerializeField]
-    private TextMeshProUGUI loadingErrorText;
-
-    [Header("Loading Screen")]
-    [SerializeField]
-    private GameObject loadingScreenObject;
-
-    [Header("Main Menu Objects")]
-    [SerializeField]
-    private GameObject mainMenuObjectGroup;
+    public static GameManager Instance {get; private set;}
 
     // Game Settings
     private int taskAmount = 4;
@@ -37,9 +22,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (instance != this)
+        if (Instance != this)
         {
-            instance = this;
+            if (Instance != null)
+            {
+                Destroy(Instance);
+            }
+
+            Instance = this;
             DontDestroyOnLoad(this);
         }
 
@@ -50,32 +40,35 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadGameInfoVariables()
     {
-        Task gameInfoLoading = GameInfo.FetchGameInfoDatabase();
-        yield return new WaitUntil(() => gameInfoLoading.IsCompleted);
+        Task gameInfoLoadingTask = GameInfo.FetchGameInfoDatabase();
+        yield return new WaitUntil(() => gameInfoLoadingTask.IsCompleted);
 
-        if (gameInfoLoading.IsFaulted)
+        if (gameInfoLoadingTask.IsFaulted)
         {
-            Debug.LogError(gameInfoLoading.Exception);
-            LoadingErrorLog(gameInfoLoading.Exception.Message);
+            Debug.LogError(gameInfoLoadingTask.Exception);
+            if (MainMenuSceneUIManager.Instance != null)
+            {
+                MainMenuSceneUIManager.Instance.LoadingErrorLog(gameInfoLoadingTask.Exception.Message);
+            }
+            
         }
 
-        Task defaultPlayer = new Player().CreatePlayer();
-        yield return new WaitUntil(() => defaultPlayer.IsCompleted);
+        Task CreatePlayerTask = new Player().CreatePlayer();
+        yield return new WaitUntil(() => CreatePlayerTask.IsCompleted);
         
-        if (defaultPlayer.IsFaulted)
+        if (CreatePlayerTask.IsFaulted)
         {
-            LoadingErrorLog(defaultPlayer.Exception.Message);
+            Debug.LogError(CreatePlayerTask.Exception.Message);
+            if (MainMenuSceneUIManager.Instance != null)
+            {
+                MainMenuSceneUIManager.Instance.LoadingErrorLog(CreatePlayerTask.Exception.Message);
+            }
         }
 
-        yield return new WaitUntil(() => MainMenuUIManager.instance != null);
-        MainMenuUIManager.instance.LoadMainPanel();
-    }
-
-    private void LoadingErrorLog(string message)
-    {
-        loadingErrorText.text = message;
-        loadingErrorLogObject.SetActive(true);
-        mainMenuObjectGroup.SetActive(false);
+        if (MainMenuUIManager.Instance != null)
+            {
+                MainMenuUIManager.Instance.LoadMainPanel();
+            }
     }
 
     public void StartGame()
