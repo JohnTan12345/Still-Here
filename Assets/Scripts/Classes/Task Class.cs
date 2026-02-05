@@ -127,7 +127,7 @@ public class GameTask
     public int CurrentStepCount {get; private set;} = 0;
     public string CurrentStepDescription {get {return Steps[CurrentStepCount].StepDescription;}}
     private float currentProgress = 0; 
-    public float CurrentProgress {get {return currentProgress;} private set {currentProgress = value; onProgressChange?.Invoke();}}
+    public float CurrentProgress {get {return currentProgress;} private set {currentProgress = value; Debug.Log("Detected change"); onProgressChange?.Invoke();}}
     public float MaxProgress {get {return Steps[CurrentStepCount].MaxProgress;}}
     public bool TaskComplete {get; private set;} = false;
     public int TaskCompletionCount {get; private set;} = 0;
@@ -161,7 +161,6 @@ public class GameTask
         if (CurrentProgress < MaxProgress)
         {
             CurrentProgress += progresesAmount;
-            Debug.Log("Added Progress");
         }
         
         if (CurrentProgress >= MaxProgress)

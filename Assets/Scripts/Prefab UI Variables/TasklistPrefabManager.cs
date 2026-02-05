@@ -15,7 +15,7 @@ public class TasklistPrefabManager : MonoBehaviour
     private string gameTaskName;
     private GameTask gameTask;
 
-    void OnDisable()
+    void OnDestroy()
     {
         gameTask.onProgressChange -= UpdateUI;
     }

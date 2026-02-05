@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TasklistUIManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class TasklistUIManager : MonoBehaviour
     {
         Destroy(tasklistFrame.gameObject);
         tasklistFrame = Instantiate(tasklistFrameCopy, tasklistViewport).transform;
+        tasklistScrollView.GetComponent<ScrollRect>().content = tasklistFrame.GetComponent<RectTransform>();
         foreach (string gameTaskName in GameTasks.GetGameTasksOrder())
         {
             GameObject newTasklistPrefab = Instantiate(tasklistPrefab, tasklistFrame);
@@ -42,7 +44,8 @@ public class TasklistUIManager : MonoBehaviour
     }
     public void OnGrabRelease()
     {
+        transform.localPosition = Vector3.zero;
+        Debug.Log("Position set");
         tasklistUI.SetActive(false);
-        tasklistUI.transform.localPosition = Vector3.zero;
     }
 }
