@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public void Log(string message)
+    public Transform pourPoint;
+    public TextMeshProUGUI text;
+    void Update()
     {
-        Debug.Log(message);
+        float angle = Vector3.Angle(pourPoint.up, Vector3.down);
+        text.text = angle.ToString();
     }
 }

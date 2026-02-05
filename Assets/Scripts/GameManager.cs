@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     private bool loadingGame = false;
     private bool activeGame = false;
     private int time = 0;
-    private Coroutine timeKeeper;
-    private Coroutine forgetTimer;
 
     private DifficultySetting gameSettings;
 
@@ -33,6 +31,7 @@ public class GameManager : MonoBehaviour
             if (Instance != null)
             {
                 Destroy(this);
+                return;
             }
 
             Instance = this;
@@ -78,17 +77,19 @@ public class GameManager : MonoBehaviour
 
         if (testing)
         {
+            Debug.Log("Testing Enabled");
             DifficultySetting difficultySetting = new DifficultySetting();
             difficultySetting.taskAmount = taskAmount_test;
             difficultySetting.forgetFrequency = forgetFrequency_test;
             difficultySetting.changeTasklistOrder = changeTasklistOrder_test;
 
-            StartGame(difficultySetting);
+            StartCoroutine(StartGame(difficultySetting));
         }
     }
 
     public IEnumerator StartGame(DifficultySetting difficultySetting)
     {
+        Debug.Log("Starting new game");
         if (loadingGame)
         {
             yield break;
@@ -99,7 +100,6 @@ public class GameManager : MonoBehaviour
         
         gameSettings = difficultySetting;
         GameTasks.CreateGameTasks(difficultySetting.taskAmount);
-        yield return new WaitUntil(() => GameTasks.GetGameTasks() != null || GameTasks.GetGameTasks().Count != 0);
         Debug.Log("Tasks Created Successfully");
         time = 0;
         
@@ -110,15 +110,16 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
         
+        TasklistUIManager.Instance.CreateGameTasks();
+
         loadingGame = false;
-        timeKeeper = StartCoroutine(StartTimer());
-        forgetTimer = StartCoroutine(StartForgetTImer());
+        StartCoroutine(StartTimer());
+        StartCoroutine(StartForgetTImer());
     }
 
     public void EndGame()
     {
         activeGame = false;
-        timeKeeper = null;
 
         // Show end game UI
         SceneManager.LoadScene(0);

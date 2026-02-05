@@ -29,7 +29,6 @@ public class FishFeedingChecker : MonoBehaviour
     {
         if (other.CompareTag("FishFood"))
         {
-            Debug.Log("Feeding started.");
             feeding = true;
 
             Destroy(other.gameObject);

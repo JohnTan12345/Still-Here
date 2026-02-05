@@ -9,7 +9,7 @@ public class MouthAreaInteraction : MonoBehaviour
     {
         if (other.CompareTag("Pills"))
         {
-            GameTasks.AddGameTaskProgress("Take meds", 1, 1);
+            GameTasks.AddGameTaskProgress("Take medicene", 1, 1);
             Destroy(other.gameObject);
         }
     }

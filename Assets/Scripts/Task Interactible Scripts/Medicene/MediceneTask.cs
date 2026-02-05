@@ -4,6 +4,6 @@ public class MediceneTask : MonoBehaviour
 {
     public void onPickUp()
     {
-        GameTasks.StartGameTask("Take meds");
+        GameTasks.StartGameTask("Take medicene");
     }
 }

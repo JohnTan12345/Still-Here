@@ -41,7 +41,7 @@ public class JarPourController : MonoBehaviour
 
     bool IsTiltedCorrectly()
     {
-        float angle = Vector3.Angle(pourPoint.forward, Vector3.down);
+        float angle = Vector3.Angle(pourPoint.up, Vector3.down);
         return angle < pourAngle;
     }
 
