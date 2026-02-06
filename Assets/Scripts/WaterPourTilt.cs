@@ -5,7 +5,7 @@ public class WaterPourTilt : MonoBehaviour
     public Transform pourPoint;
     public ParticleSystem pourParticles;
 
-
+    public GameObject waterParticlePrefab;
 
     [Header("Pour Settings")]
     public float pourAngle = 60f;
@@ -47,7 +47,7 @@ public class WaterPourTilt : MonoBehaviour
         if (!pourParticles.isPlaying)
             pourParticles.Play();
 
-        
+        GameObject newWaterParticle = Instantiate(waterParticlePrefab, pourPoint.position, pourPoint.rotation);
     }
 
     void StopPouring()

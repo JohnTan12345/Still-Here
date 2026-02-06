@@ -47,6 +47,7 @@ public class WaterPlantChecker : MonoBehaviour
         completed = true;
         watering = false;
         waterTimer = 0f;
+        OnPlantsWatered();
 
         if (successSparkles != null)
         {
@@ -54,6 +55,18 @@ public class WaterPlantChecker : MonoBehaviour
         }
 
         Debug.Log("Plant has been watered!");
+    }
+
+    public void OnCanPickUp()
+    {
+        Debug.Log("Can picked up, starting watering plants task.");
+        GameTasks.StartGameTask("Water plants");
+    }
+
+    public void OnPlantsWatered()
+    {
+        Debug.Log("Plants watered, adding progress to watering plants task.");
+        GameTasks.AddGameTaskProgress("Water plants", 1, 1);
     }
 
 
