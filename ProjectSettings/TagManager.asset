@@ -7,6 +7,9 @@ TagManager:
   - Anchor
   - PlayerHand
   - TrashBag
+  - FishFood
+  - laundry
+  - WaterParticle
   layers:
   - Default
   - TransparentFX
