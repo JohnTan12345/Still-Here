@@ -6,13 +6,20 @@ using UnityEngine;
 public class EndGameManager : MonoBehaviour
 {
     public Transform playerCamera;
+    public Transform endGameUIInfo;
+    public GameObject loadingScreenObject;
     void Update()
     {
-        transform.LookAt(playerCamera);
+        endGameUIInfo.LookAt(playerCamera);
     }
 
     public void EndGame()
     {
-        GameManager.Instance.EndGame();
+        GameManager.Instance.EndGame(loadingScreenObject);
+    }
+
+    public void AnimationEnd()
+    {
+        GameManager.Instance.LoadEndScene();
     }
 }

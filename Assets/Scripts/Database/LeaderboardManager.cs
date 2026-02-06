@@ -35,6 +35,8 @@ public static class LeaderboardManager
             return;
         }
 
+        string username = DatabaseAccountManager.user.Email.Substring(0, DatabaseAccountManager.user.Email.IndexOf("@") + 1);
+
         int runTime = currentRun.Time;
         int leaderboardPosition = -1;
 
@@ -50,7 +52,7 @@ public static class LeaderboardManager
         if (leaderboardPosition != 1)
         {
             LeaderboardInfo info = new LeaderboardInfo();
-            info.Username = "";
+            info.Username = username;
             info.Time = currentRun.Time;
             List<LeaderboardInfo> newLeaderboard = new List<LeaderboardInfo>();
 

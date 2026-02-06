@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 269885972379220944}
   m_Layer: 0
   m_Name: shirt
-  m_TagString: Untagged
+  m_TagString: laundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

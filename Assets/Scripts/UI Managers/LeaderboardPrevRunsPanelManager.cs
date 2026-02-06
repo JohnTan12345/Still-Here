@@ -172,20 +172,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
             previousRunHeader.text = $"Run #{currentRunPage + 1}";
         }
         
-        
-        int previousRunTime = Player.currentPlayer.playerData.PreviousRuns[currentRunPage].Time;
-
-        if (previousRunTime >= 60)
-        {
-            int previousRunTimeSeconds = previousRunTime % 60;
-            int previousRunTimeMinutes = (int)Mathf.Floor(previousRunTime/60);
-
-            previousRunTimeText.text = $"Time: {(previousRunTimeMinutes >=10 ? previousRunTimeMinutes : "0"+ previousRunTimeMinutes)}:{(previousRunTimeSeconds >= 10 ?previousRunTimeSeconds : "0" + previousRunTimeSeconds.ToString())}";
-        }
-        else
-        {
-            previousRunTimeText.text = $"Time: 00:{(previousRunTime >= 10 ? previousRunTime : "0" + previousRunTime.ToString())}";
-        }
+        previousRunTimeText.text = $"Time: {Player.currentPlayer.playerData.PreviousRuns[currentRunPage].GetTimeString()}";
 
         Destroy(tasklistViewport.transform.GetChild(0).gameObject);
         tasklistFrame = Instantiate(tasklistFrameCopy, tasklistViewport.transform);

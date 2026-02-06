@@ -117,11 +117,54 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartForgetTImer());
     }
 
-    public void EndGame()
+    public void EndGame(GameObject loadingScreen)
     {
         activeGame = false;
+        
+        List<TaskInfo> currentRunTasklist = new List<TaskInfo>();
+        foreach (string gameTaskName in GameTasks.GetGameTasksOrder())
+        {
+            TaskInfo newTaskInfo = new TaskInfo
+            {
+                TaskName = gameTaskName,
+                CompletionCount = GameTasks.GetGameTasks()[gameTaskName].TaskCompletionCount
+            };
 
-        // Show end game UI
+            currentRunTasklist.Add(newTaskInfo);
+        }
+
+        Player.currentPlayer.currentRun = new Run()
+        {
+            Tasklist = currentRunTasklist,
+            Time = time
+        };
+
+        // Reset Game Data
+        time = 0;
+        
+
+        Animator loadingScreenAnimator;
+
+        loadingScreen.TryGetComponent(out loadingScreenAnimator);
+
+        if (loadingScreenAnimator != null)
+        {
+            Debug.Log("Animator found!");
+            loadingScreenAnimator.Play("Fade In");
+        }
+        else
+        {
+            LoadEndScene();
+        }
+    }
+
+    public void LoadEndScene()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void ReturnMainMenu()
+    {
         SceneManager.LoadScene(0);
     }
 
