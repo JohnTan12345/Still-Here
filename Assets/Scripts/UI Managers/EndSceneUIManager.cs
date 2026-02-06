@@ -51,7 +51,7 @@ public class EndSceneUIManager : MonoBehaviour
 
     public void GoMainMenu()
     {
-        LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun);
+        //LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun); Fix later
 
         if (Player.currentPlayer.playerData.PreviousRuns.Count >= 5)
         {
@@ -59,6 +59,9 @@ public class EndSceneUIManager : MonoBehaviour
         }
 
         Player.currentPlayer.playerData.PreviousRuns.Add(Player.currentPlayer.currentRun);
+        DatabaseManager.SaveUserDataAsync(Player.currentPlayer);
+
+        Player.currentPlayer.currentRun = null;
 
         GameManager.Instance.ReturnMainMenu();
     }

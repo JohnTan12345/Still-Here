@@ -82,7 +82,7 @@ public static class DatabaseManager
             {
                 Debug.Log("User Data Write started");
                 string userID = DatabaseAccountManager.user.UserId;
-                await userDataReference.Child(DatabaseAccountManager.user.UserId).SetRawJsonValueAsync(JsonUtility.ToJson(player.playerData));
+                await userDataReference.Child(userID).SetRawJsonValueAsync(JsonUtility.ToJson(player.playerData));
                 
             } 
             else

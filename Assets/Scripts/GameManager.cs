@@ -107,10 +107,10 @@ public class GameManager : MonoBehaviour
 
         if (!testing)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadSceneAsync(1);
         }
         
-        TasklistUIManager.Instance.CreateGameTasks();
+        yield return null;
 
         loadingGame = false;
         StartCoroutine(StartTimer());
@@ -190,22 +190,6 @@ public class GameManager : MonoBehaviour
                 GameTasks.ForgetCompletedGameTasks(Random.Range(1, GameTasks.GetGameTasks().Count - 1), gameSettings.changeTasklistOrder);
                 forgetTime = 0;
             }
-        }
-    }
-    
-    public void RepositionObject(GameObject gameObject)
-    {
-        try
-        {
-            List<Vector3> positionList = GameInfo.GetObjectPositions(gameObject.name);
-            
-            Vector3 newPosition = positionList[Random.Range(0, positionList.Count -1)];
-
-            gameObject.transform.position = newPosition;
-        }
-        catch (KeyNotFoundException)
-        {
-            Debug.LogWarning("This object does not exist inside the list");
         }
     }
 }

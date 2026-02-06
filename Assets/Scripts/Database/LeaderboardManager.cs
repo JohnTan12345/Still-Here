@@ -56,15 +56,20 @@ public static class LeaderboardManager
             info.Time = currentRun.Time;
             List<LeaderboardInfo> newLeaderboard = new List<LeaderboardInfo>();
 
+            // Needs fixing
             for (int i = 0; i < leaderboardLength; i++)
             {
+                Debug.Log($"{i}/{leaderboardLength}");
                 if (i > leaderboardPosition)
                 {
-                    newLeaderboard[i] = leaderboard[i-1];
+                    Debug.Log($"lower than {leaderboardPosition}");
+                    newLeaderboard.Add(leaderboard[i-1]);
                 }
                 else if (i == leaderboardPosition)
                 {
-                    newLeaderboard[i] = info;
+                    Debug.Log("This position");
+                    Debug.Log(JsonUtility.ToJson(newLeaderboard, true));
+                    newLeaderboard.Add(info);
                 }
                 else
                 {
