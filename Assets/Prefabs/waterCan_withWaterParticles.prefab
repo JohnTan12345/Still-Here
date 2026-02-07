@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 4180829062782434660}
   - component: {fileID: 269835811679472283}
   - component: {fileID: 2778606488307250121}
-  - component: {fileID: 6115878391087640492}
   - component: {fileID: 1490279273733642301}
   - component: {fileID: 3226308124546717022}
   m_Layer: 0
@@ -145,21 +144,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4170545086346782904, guid: 0eae74d2b2f43224a872572cf190c21c, type: 3}
---- !u!114 &6115878391087640492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4259693189445929854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272a08a03abc34245b526da2d1591d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pourPoint: {fileID: 1375139834685745149}
-  pourParticles: {fileID: 1168795124260588453}
-  pourAngle: 80
 --- !u!54 &1490279273733642301
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,11 +166,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &3226308124546717022
 MonoBehaviour:
   m_ObjectHideFlags: 0

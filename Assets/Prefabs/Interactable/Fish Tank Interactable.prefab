@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 5617408306650394547}
   - component: {fileID: 7748565552048596961}
   - component: {fileID: 389391291296384632}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FishTank_FoodTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

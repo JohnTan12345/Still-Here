@@ -26,7 +26,6 @@ public class WaterPlantChecker : MonoBehaviour
     {
         if (other.CompareTag("WaterParticle"))
         {
-            Debug.Log("Watering started.");
             watering = true;
 
             Destroy(other.gameObject);
@@ -37,7 +36,6 @@ public class WaterPlantChecker : MonoBehaviour
     {
         if (other.CompareTag("WaterParticle"))
         {
-            Debug.Log("Watering stopped.");
             watering = false;
         }
     }

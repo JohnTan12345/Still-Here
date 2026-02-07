@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7548547782147207359}
   - component: {fileID: 4184999197674617693}
   - component: {fileID: 1660151687502548983}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fish_food
   m_TagString: FishFood
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3652904417502958654}
   - component: {fileID: 7221236013151197382}
   - component: {fileID: 6081535829917242315}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fish_food
   m_TagString: FishFood
   m_Icon: {fileID: 0}
