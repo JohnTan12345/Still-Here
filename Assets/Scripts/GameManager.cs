@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     // Game Data
     private bool loadingGame = false;
-    private bool activeGame = false;
+    public bool activeGame {get; private set;} = false;
     private int time = 0;
 
     private DifficultySetting gameSettings;
@@ -71,9 +71,9 @@ public class GameManager : MonoBehaviour
         }
 
         if (MainMenuUIManager.Instance != null)
-            {
-                MainMenuUIManager.Instance.LoadMainPanel();
-            }
+        {
+            MainMenuUIManager.Instance.LoadMainPanel();
+        }
 
         if (testing)
         {
@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour
             difficultySetting.changeTasklistOrder = changeTasklistOrder_test;
 
             StartCoroutine(StartGame(difficultySetting));
+
+            if (TasklistUIManager.Instance != null)
+            {
+                TasklistUIManager.Instance.CreateGameTasks();
+            }
         }
     }
 

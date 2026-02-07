@@ -20,7 +20,7 @@ public class BreakerController : MonoBehaviour
     public float finalIntensity = 5f;
 
     [Header("Audio Settings")]
-    public AudioSource audioSource;          // normal snap sound
+    public AudioSource snapSource;          // normal snap sound
     public AudioClip snapSound;
     public AudioSource shortCircuitSource;   // short circuit sound
     public AudioClip shortCircuitClip;
@@ -29,7 +29,7 @@ public class BreakerController : MonoBehaviour
     public ParticleSystem sparkVFX;
 
     [Header("Breaker Settings")]
-    public int maxFlipsBeforeBreak = 3;
+    public int maxFlipsBeforeBreak = 5;
 
     private bool breakerOn = false;
     private bool breakerBroken = false;
@@ -61,11 +61,12 @@ public class BreakerController : MonoBehaviour
 
     public void ToggleBreaker()
     {
+        Debug.Log("trigger");
         if (breakerBroken) return; // no toggling if broken
 
         breakerOn = !breakerOn;
         flipCount++;
-
+        OnFlipSwitch();
         // Check if breaker should break
         if (flipCount >= maxFlipsBeforeBreak)
         {
@@ -74,8 +75,8 @@ public class BreakerController : MonoBehaviour
         }
 
         // Play snap sound
-        if (audioSource && snapSound)
-            audioSource.PlayOneShot(snapSound);
+        if (snapSource && snapSound)
+            snapSource.PlayOneShot(snapSound);
 
         // Lever animation
         if (leverTransform != null)
@@ -160,27 +161,12 @@ public class BreakerController : MonoBehaviour
     // --- Game Task Integration ---
     public void OnOpenDoor()
     {
-      GameTasks.StartGameTask("Circuit Breaker Task");
+      GameTasks.StartGameTask("Fix circuit breaker");
     }
 
     public void OnFlipSwitch()
     {
-      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 1, 1);
-    }
-
-    public void OnLightFlicker()
-    {
-      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 2, 1);
-    }
-
-    public void OnCloseDoor()
-    {
-      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 3, 1);
-    }
-
-    public void OnShortCircuit()
-    {
-      GameTasks.AddGameTaskProgress("Circuit Breaker Task", 4, 1);
+      GameTasks.AddGameTaskProgress("Fix circuit breaker", 1, 1);
     }
 
 }

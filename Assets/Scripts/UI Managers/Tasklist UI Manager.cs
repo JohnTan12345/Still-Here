@@ -32,7 +32,7 @@ public class TasklistUIManager : MonoBehaviour
         CreateGameTasks();
     }
 
-    private void CreateGameTasks()
+    public void CreateGameTasks()
     {
         Destroy(tasklistFrame.gameObject);
         tasklistFrame = Instantiate(tasklistFrameCopy, tasklistViewport).transform;
