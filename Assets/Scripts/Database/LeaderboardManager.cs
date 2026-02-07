@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Google.MiniJSON;
 using UnityEngine;
 
 public static class LeaderboardManager
 {
-    private static List<LeaderboardInfo> leaderboard = new List<LeaderboardInfo>();
+    public static List<LeaderboardInfo> leaderboard {get; private set;}
     private static int leaderboardLength = 5;
     public async static Task<List<LeaderboardInfo>> GetLeaderboard()
     {
@@ -17,7 +18,6 @@ public static class LeaderboardManager
             return null;
         } else
         {
-            leaderboard = new List<LeaderboardInfo>();
             foreach(var child in result.snapshot.Children)
             {
                 LeaderboardInfo leaderboardInfo = JsonUtility.FromJson<LeaderboardInfo>(child.GetRawJsonValue());
@@ -35,53 +35,91 @@ public static class LeaderboardManager
             return;
         }
 
-        string username = DatabaseAccountManager.user.Email.Substring(0, DatabaseAccountManager.user.Email.IndexOf("@") + 1);
-
         int runTime = currentRun.Time;
-        int leaderboardPosition = -1;
+        bool inLeaderboard = false;
 
-        for (int i = 0; i < leaderboard.Count; i++)
+        if (leaderboard.Count < 5)
         {
-            if (runTime < leaderboard[i].Time)
+            inLeaderboard = true;
+        }
+        else
+        {
+            for (int i = 0; i < leaderboard.Count; i++)
             {
-                leaderboardPosition = i;
-                break;
+                if (runTime < leaderboard[i].Time)
+                {
+                    inLeaderboard = true;
+                    break;
+                }
             }
         }
 
-        if (leaderboardPosition != 1)
-        {
-            LeaderboardInfo info = new LeaderboardInfo();
-            info.Username = username;
-            info.Time = currentRun.Time;
-            List<LeaderboardInfo> newLeaderboard = new List<LeaderboardInfo>();
+        
 
-            // Needs fixing
-            for (int i = 0; i < leaderboardLength; i++)
+        if (inLeaderboard)
+        {
+            Debug.Log("Inside leaderboard!");
+            bool statsAddedToLeaderboard = false;
+            string username = DatabaseAccountManager.user.Email[..DatabaseAccountManager.user.Email.IndexOf("@")];
+            LeaderboardInfo info = new()
             {
-                Debug.Log($"{i}/{leaderboardLength}");
-                if (i > leaderboardPosition)
+                Username = username,
+                Time = currentRun.Time
+            };
+            List<LeaderboardInfo> newLeaderboard = new();
+            List<Dictionary<string, object>> leaderboardJSON = new();
+
+            Debug.Log(newLeaderboard);
+
+            if (leaderboard.Count == 0)
+            {
+                Debug.Log("nothing in leaderboard");
+                newLeaderboard.Add(info);
+                leaderboardJSON.Add(new Dictionary<string, object>() { {"Username", info.Username}, {"Time", info.Time} });
+            }
+            else
+            {
+                foreach (LeaderboardInfo leaderboardInfo in leaderboard)
                 {
-                    Debug.Log($"lower than {leaderboardPosition}");
-                    newLeaderboard.Add(leaderboard[i-1]);
+                    if (newLeaderboard.Count > 4)
+                    {
+                        break;
+                    }
+
+                    if (leaderboardInfo.Time < info.Time)
+                    {
+                        newLeaderboard.Add(leaderboardInfo);
+                        leaderboardJSON.Add(new Dictionary<string, object>() { {"Username", leaderboardInfo.Username}, {"Time", leaderboardInfo.Time} });
+                    }
+                    else if (leaderboardInfo.Time >= info.Time)
+                    {
+                        if (!statsAddedToLeaderboard)
+                        {
+                            Debug.Log("Adding this");
+                            newLeaderboard.Add(info);
+                            leaderboardJSON.Add(new Dictionary<string, object>() { {"Username", info.Username}, {"Time", info.Time} });
+                            statsAddedToLeaderboard = true;
+                        }
+
+                        newLeaderboard.Add(leaderboardInfo);
+                        leaderboardJSON.Add(new Dictionary<string, object>() { {"Username", leaderboardInfo.Username}, {"Time", leaderboardInfo.Time} });
+                    }
                 }
-                else if (i == leaderboardPosition)
+
+                if (newLeaderboard.Count < 5 && !statsAddedToLeaderboard)
                 {
-                    Debug.Log("This position");
-                    Debug.Log(JsonUtility.ToJson(newLeaderboard, true));
                     newLeaderboard.Add(info);
-                }
-                else
-                {
-                    newLeaderboard[i] = leaderboard[i];
+                    leaderboardJSON.Add(new Dictionary<string, object>() { {"Username", info.Username}, {"Time", info.Time} });
                 }
             }
+            
             leaderboard = newLeaderboard;
-            DatabaseManager.SetValueInPath("Leaderboard", JsonUtility.ToJson(newLeaderboard));
+            DatabaseManager.SetValueInPath("Leaderboard", Json.Serialize(leaderboardJSON));
         }
     }
 }
 
+[System.Serializable]
 public class LeaderboardInfo
 {
     public string Username;

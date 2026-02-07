@@ -51,7 +51,7 @@ public class EndSceneUIManager : MonoBehaviour
 
     public void GoMainMenu()
     {
-        //LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun); Fix later
+        LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun);
 
         if (Player.currentPlayer.playerData.PreviousRuns.Count >= 5)
         {
