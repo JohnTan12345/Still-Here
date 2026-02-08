@@ -138,6 +138,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2134116571672678237, guid: c9ffab177f2229d4f965c31d018541d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8926833499157268391}
+    - targetCorrespondingSourceObject: {fileID: 2134116571672678237, guid: c9ffab177f2229d4f965c31d018541d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5768877838838542114}
   m_SourcePrefab: {fileID: 100100000, guid: c9ffab177f2229d4f965c31d018541d3, type: 3}
 --- !u!4 &2466412466943587904 stripped
 Transform:
@@ -173,7 +176,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &6707354191768475457
@@ -329,11 +332,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428827bdb5b2a244e96fc4f9347b0b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pourPoint: {fileID: 2809332769072092291}
-  pourParticles: {fileID: 0}
-  pourItemPrefab: {fileID: 6122933722466382402, guid: c768fd1df41c2d54f9e6763fd8b55d5e, type: 3}
-  pourAngle: 60
-  shakeThreshold: 2
+  PourPoint: {fileID: 2809332769072092291}
+  PourParticles: {fileID: 0}
+  PourItemPrefab: {fileID: 6122933722466382402, guid: c768fd1df41c2d54f9e6763fd8b55d5e, type: 3}
+  PourAngle: 60
+  RequireShaking: 1
+  ShakeThreshold: 0.5
 --- !u!114 &8926833499157268391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +350,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e072b680b270e3541a6b8605b05c6ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5768877838838542114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770571651797102779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfb973f388656044ac55b4cb60fd799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectPositionsReferenceName: 
+  RelocationTime: -1
+  targetTransform: {fileID: 0}
 --- !u!4 &6548591498236238478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8299958200742356328, guid: c9ffab177f2229d4f965c31d018541d3, type: 3}

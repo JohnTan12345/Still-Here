@@ -59,6 +59,9 @@ public class EndSceneUIManager : MonoBehaviour
         }
 
         Player.currentPlayer.playerData.PreviousRuns.Add(Player.currentPlayer.currentRun);
+        DatabaseManager.SaveUserDataAsync(Player.currentPlayer);
+
+        Player.currentPlayer.currentRun = null;
 
         GameManager.Instance.ReturnMainMenu();
     }

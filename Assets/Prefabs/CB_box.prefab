@@ -625,7 +625,6 @@ GameObject:
   - component: {fileID: 642795539226647740}
   - component: {fileID: 7573059479772100007}
   - component: {fileID: 5719421306373269643}
-  - component: {fileID: 4165997014625867750}
   m_Layer: 0
   m_Name: switch1
   m_TagString: Untagged
@@ -701,28 +700,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4165997014625867750
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5094034834335382207}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1439774519169845025, guid: 76c1b3dfd11072c4b8085f63bcf462b3, type: 3}
 --- !u!1 &5254389281689209041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +979,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3071218009338331215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,7 +1028,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BreakerController, Assembly-CSharp
+        m_MethodName: OnOpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -1129,7 +1118,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
-  m_LimitLinearVelocity: 0
+  m_LimitLinearVelocity: 1
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
@@ -1183,8 +1172,6 @@ GameObject:
   - component: {fileID: 1256970304674394618}
   - component: {fileID: 2443519710091720908}
   - component: {fileID: 9078663264125452615}
-  - component: {fileID: 2708370089507992729}
-  - component: {fileID: 2568338679504647009}
   m_Layer: 0
   m_Name: switch2
   m_TagString: Untagged
@@ -1260,53 +1247,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2708370089507992729
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6074310204527053632}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.7576294, y: 0.9879303, z: 1.7911377}
-  m_Center: {x: 0.031065464, y: 0.5024338, z: -2.3712769}
---- !u!114 &2568338679504647009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6074310204527053632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eeb49edc9f017347b6becd740adebcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leverTransform: {fileID: 1256970304674394618}
-  flipAngle: -45
-  resetAngle: 45
-  flipSpeed: 3
-  neonLights:
-  - {fileID: 0}
-  - {fileID: 0}
-  neonRenderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  glowColor: {r: 1, g: 0.88481057, b: 0, a: 1}
-  finalIntensity: 8
-  audioSource: {fileID: 0}
-  snapSound: {fileID: 0}
 --- !u!1 &6238033276679381950
 GameObject:
   m_ObjectHideFlags: 0

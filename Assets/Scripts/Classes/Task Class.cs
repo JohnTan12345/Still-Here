@@ -112,7 +112,11 @@ public static class GameTasks
         }
         catch (KeyNotFoundException)
         {
-            Debug.Log("Not part of the tasklist");
+            Debug.LogWarning("Not part of the tasklist");
+        }
+        catch (System.NullReferenceException)
+        {
+            Debug.LogError("There is no tasklist at all! please create one");
         }
         catch (System.Exception exception)
         {

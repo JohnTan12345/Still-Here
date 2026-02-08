@@ -9,12 +9,14 @@ TagManager:
   - TrashBag
   - FishFood
   - Pills
-  - laundry
+  - Laundry
+  - WaterParticle
+  - Water
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Particles
   - Water
   - UI
   - 

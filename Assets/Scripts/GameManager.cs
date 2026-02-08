@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour
     public int forgetFrequency_test = 60;
     public bool changeTasklistOrder_test = true;
 
+    [Header("Game Settings not in UI")]
+    public float ObjectRelocationTime = 30;
+
     // Game Data
     private bool loadingGame = false;
-    private bool activeGame = false;
+    public bool activeGame {get; private set;} = false;
     private int time = 0;
 
     private DifficultySetting gameSettings;
@@ -71,9 +74,9 @@ public class GameManager : MonoBehaviour
         }
 
         if (MainMenuUIManager.Instance != null)
-            {
-                MainMenuUIManager.Instance.LoadMainPanel();
-            }
+        {
+            MainMenuUIManager.Instance.LoadMainPanel();
+        }
 
         if (testing)
         {
@@ -84,6 +87,11 @@ public class GameManager : MonoBehaviour
             difficultySetting.changeTasklistOrder = changeTasklistOrder_test;
 
             StartCoroutine(StartGame(difficultySetting));
+
+            if (TasklistUIManager.Instance != null)
+            {
+                TasklistUIManager.Instance.CreateGameTasks();
+            }
         }
     }
 
@@ -107,10 +115,10 @@ public class GameManager : MonoBehaviour
 
         if (!testing)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadSceneAsync(1);
         }
         
-        TasklistUIManager.Instance.CreateGameTasks();
+        yield return null;
 
         loadingGame = false;
         StartCoroutine(StartTimer());
@@ -190,22 +198,6 @@ public class GameManager : MonoBehaviour
                 GameTasks.ForgetCompletedGameTasks(Random.Range(1, GameTasks.GetGameTasks().Count - 1), gameSettings.changeTasklistOrder);
                 forgetTime = 0;
             }
-        }
-    }
-    
-    public void RepositionObject(GameObject gameObject)
-    {
-        try
-        {
-            List<Vector3> positionList = GameInfo.GetObjectPositions(gameObject.name);
-            
-            Vector3 newPosition = positionList[Random.Range(0, positionList.Count -1)];
-
-            gameObject.transform.position = newPosition;
-        }
-        catch (KeyNotFoundException)
-        {
-            Debug.LogWarning("This object does not exist inside the list");
         }
     }
 }

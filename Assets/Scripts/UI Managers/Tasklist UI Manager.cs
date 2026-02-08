@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TasklistUIManager : MonoBehaviour
 {
-    public static TasklistUIManager Instance {get; private set;}
+    public static TasklistUIManager Instance;
 
     [SerializeField]
     private GameObject tasklistScrollView;
@@ -20,6 +20,7 @@ public class TasklistUIManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        Debug.Log("Instance set");
 
         tasklistViewport = tasklistScrollView.transform.Find("Viewport");
         tasklistFrame = tasklistViewport.Find("Content");
@@ -27,6 +28,8 @@ public class TasklistUIManager : MonoBehaviour
         tasklistFrameCopy = Instantiate(tasklistFrame.gameObject);
 
         tasklistUI.SetActive(false);
+
+        CreateGameTasks();
     }
 
     public void CreateGameTasks()
