@@ -55,12 +55,12 @@ public static class GameInfo
 
             foreach (var position in objectName.Children)
             {
-
                 positions.Add(JsonUtility.FromJson<Vector3>(position.GetRawJsonValue()));
 
             }
 
             allObjectsPositions.Add(objectName.Key, positions);
+
         }
 
         DataLoaded = true;

@@ -329,11 +329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428827bdb5b2a244e96fc4f9347b0b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pourPoint: {fileID: 2809332769072092291}
-  pourParticles: {fileID: 0}
-  pourItemPrefab: {fileID: 6122933722466382402, guid: c768fd1df41c2d54f9e6763fd8b55d5e, type: 3}
-  pourAngle: 60
-  shakeThreshold: 2
+  PourPoint: {fileID: 2809332769072092291}
+  PourParticles: {fileID: 0}
+  PourItemPrefab: {fileID: 6122933722466382402, guid: c768fd1df41c2d54f9e6763fd8b55d5e, type: 3}
+  PourAngle: 60
+  RequireShaking: 1
+  ShakeThreshold: 0.5
 --- !u!114 &8926833499157268391
 MonoBehaviour:
   m_ObjectHideFlags: 0

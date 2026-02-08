@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public int forgetFrequency_test = 60;
     public bool changeTasklistOrder_test = true;
 
+    [Header("Game Settings not in UI")]
+    public float ObjectRelocationTime = 30;
+
     // Game Data
     private bool loadingGame = false;
     public bool activeGame {get; private set;} = false;
