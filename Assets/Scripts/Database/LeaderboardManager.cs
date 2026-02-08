@@ -35,6 +35,11 @@ public static class LeaderboardManager
             return;
         }
 
+        if (leaderboard == null)
+        {
+            return;
+        }
+
         int runTime = currentRun.Time;
         bool inLeaderboard = false;
 

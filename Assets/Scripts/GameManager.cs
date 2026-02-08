@@ -27,7 +27,19 @@ public class GameManager : MonoBehaviour
     // Game Data Accessors
     public int GetTime() => time;
 
-    void Start()
+    public string GetTimeString()
+    {
+        if (time < 60)
+        {
+            return $"00:{(time >= 10 ? time : "0" + time.ToString())}";
+        }
+        int TimeSeconds = time % 60;
+        int TimeMinutes = (int)Mathf.Floor(time/60);
+
+        return $"{(TimeMinutes >=10 ? TimeMinutes : "0"+ TimeMinutes)}:{(TimeSeconds >= 10 ? TimeSeconds : "0" + TimeSeconds.ToString())}";
+    }
+
+    void Awake()
     {
         if (Instance != this)
         {

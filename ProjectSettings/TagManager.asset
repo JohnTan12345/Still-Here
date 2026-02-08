@@ -12,6 +12,7 @@ TagManager:
   - Laundry
   - WaterParticle
   - Water
+  - Trash Door
   layers:
   - Default
   - TransparentFX
