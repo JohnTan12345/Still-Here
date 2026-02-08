@@ -5097,6 +5097,34 @@ PrefabInstance:
       propertyPath: m_AttachTransform
       value: 
       objectReference: {fileID: 7525294738762308255}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2935510113983408976}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCanPickUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaterPlantChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226308124546717022, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5080027760276411144, guid: 8ad57fa9011275941a9b57fff64e4567, type: 3}
       propertyPath: m_TagString
       value: WaterParticle

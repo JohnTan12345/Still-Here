@@ -37,6 +37,12 @@ public class DishCleanable : MonoBehaviour
     void CleanDish()
     {
         isClean = true;
+        GameTasks.AddGameTaskProgress("Wash Dishes", 1, 1);
         dishRenderer.material = cleanMaterial;
+    }
+
+    public void OnDishPickup()
+    {
+        GameTasks.StartGameTask("Wash Dishes");
     }
 }
