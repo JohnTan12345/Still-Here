@@ -12,6 +12,9 @@ public class RelocatingObject : MonoBehaviour
     public string ObjectPositionsReferenceName;
     [Tooltip("Sets the time taken for this object to change position. Will use GameManager's game settings if set to -1")]
     public float RelocationTime = -1;
+    [Tooltip("Transform that will get teleported, will use this transform if none set")]
+    [SerializeField]
+    private Transform targetTransform;
 
     void Start()
     {
@@ -23,6 +26,11 @@ public class RelocatingObject : MonoBehaviour
         if (RelocationTime <= -1)
         {
             RelocationTime = GameManager.Instance.ObjectRelocationTime;
+        }
+
+        if (targetTransform == null)
+        {
+            targetTransform = transform;
         }
 
         gameObject.GetComponent<XRGrabInteractable>().selectEntered.AddListener(OnPickUp);
@@ -61,6 +69,6 @@ public class RelocatingObject : MonoBehaviour
     {
         pickedUpBefore = false;
         List<Vector3> possibleObjectPositions = GameInfo.GetObjectPositions(ObjectPositionsReferenceName);
-        transform.localPosition = possibleObjectPositions[Random.Range(0, possibleObjectPositions.Count - 1)];
+        targetTransform.localPosition = possibleObjectPositions[Random.Range(0, possibleObjectPositions.Count - 1)];
     }
 }

@@ -5228,6 +5228,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 389391291296384632}
+    - target: {fileID: 219438971000125405, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -5246,6 +5250,34 @@ PrefabInstance:
     - target: {fileID: 711042312851294864, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
       propertyPath: m_Name
       value: fish food jar
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.000001811753
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000077301445
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898654175341615208, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2624534138423872828, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5354,13 +5386,41 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3431973442619317972, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8790607127295619212}
   m_SourcePrefab: {fileID: 100100000, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
 --- !u!4 &321921050623968166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2624534138423872828, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
   m_PrefabInstance: {fileID: 2313590828788715162}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &355933478654298868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2660221126941492334, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+  m_PrefabInstance: {fileID: 2313590828788715162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1133595596837064782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3431973442619317972, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
+  m_PrefabInstance: {fileID: 2313590828788715162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8790607127295619212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133595596837064782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfb973f388656044ac55b4cb60fd799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectPositionsReferenceName: fish food jar
+  RelocationTime: -1
+  targetTransform: {fileID: 355933478654298868}
 --- !u!4 &6826586190060069511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9126370240313404445, guid: e51a9de4e3767eb4bb5e522704d045c6, type: 3}
