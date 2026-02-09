@@ -18,6 +18,8 @@ public class EndSceneUIManager : MonoBehaviour
     [SerializeField]
     private GameObject endGameTaskUIPrefab;
 
+    private bool allTasksComplete = true;
+
     void Awake()
     {
         viewport = tasklistScrollView.transform.Find("Viewport");
@@ -33,8 +35,6 @@ public class EndSceneUIManager : MonoBehaviour
         content = Instantiate(contentCopy, viewport);
         tasklistScrollView.content = content.GetComponent<RectTransform>();
 
-        bool allTasksComplete = true;
-
         foreach (TaskInfo task in Player.currentPlayer.currentRun.Tasklist)
         {
             if (allTasksComplete)
@@ -45,20 +45,45 @@ public class EndSceneUIManager : MonoBehaviour
             taskUI.GetComponent<EndGameTaskUIVariables>().UpdateUI(task);
         }
 
-        completionStatusText.text = allTasksComplete ? "You finished all your tasks!" : "You did not finish all your tasks...";
+        string endText = "";
+
+        switch (GameManager.Instance.specialEnding)
+        {
+            case 0:
+                endText = allTasksComplete ? "You finished all your tasks!" : "You did not finish all your tasks...";
+                break;
+            case 1:
+                endText = "You overdosed on pills...";
+                break;
+        }
+
+        completionStatusText.text = endText;
         timeText.text = $"Time: {Player.currentPlayer.currentRun.GetTimeString()}";
     }
 
     public void GoMainMenu()
     {
-        LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun);
-
+        if (GameManager.Instance.specialEnding == 0 && allTasksComplete)
+        {
+            LeaderboardManager.UpdateLeaderboard(Player.currentPlayer.currentRun);
+        }
+        
         if (Player.currentPlayer.playerData.PreviousRuns.Count >= 5)
         {
             Player.currentPlayer.playerData.PreviousRuns.RemoveAt(0);
         }
 
         Player.currentPlayer.playerData.PreviousRuns.Add(Player.currentPlayer.currentRun);
+
+        if (allTasksComplete && !Player.currentPlayer.playerData.Endings.Contains("Ending 1"))
+        {
+            Player.currentPlayer.playerData.Endings.Add("Ending 1");
+        }
+        else if (GameManager.Instance.specialEnding != 0 && Player.currentPlayer.playerData.Endings.Contains($"Ending {GameManager.Instance.specialEnding + 1}"))
+        {
+            Player.currentPlayer.playerData.Endings.Add($"Ending {GameManager.Instance.specialEnding + 1}");
+        }
+
         DatabaseManager.SaveUserDataAsync(Player.currentPlayer);
 
         Player.currentPlayer.currentRun = null;

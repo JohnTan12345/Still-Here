@@ -148,11 +148,11 @@ public class GameTask
 
     public void AddTaskProgress(int stepNumber, float progresesAmount)
     {
-        if (stepNumber != CurrentStepCount && stepNumber != 0)
+        if (CurrentStepCount > stepNumber || TaskCompletionCount > 0)
         {
             if (Steps[stepNumber].GameEndingStep)
             {
-                // END THAT GAME
+                EndGameManager.Instance.EndGameSpecial("Overdose");
             }
 
             return;
