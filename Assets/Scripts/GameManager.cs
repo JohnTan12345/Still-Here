@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public bool activeGame {get; private set;} = false;
     private int time = 0;
 
+    public int specialEnding {get; private set;} = 0;
+
     private DifficultySetting gameSettings;
 
     // Game Data Accessors
@@ -93,10 +95,12 @@ public class GameManager : MonoBehaviour
         if (testing)
         {
             Debug.Log("Testing Enabled");
-            DifficultySetting difficultySetting = new DifficultySetting();
-            difficultySetting.taskAmount = taskAmount_test;
-            difficultySetting.forgetFrequency = forgetFrequency_test;
-            difficultySetting.changeTasklistOrder = changeTasklistOrder_test;
+            DifficultySetting difficultySetting = new()
+            {
+                taskAmount = taskAmount_test,
+                forgetFrequency = forgetFrequency_test,
+                changeTasklistOrder = changeTasklistOrder_test
+            };
 
             StartCoroutine(StartGame(difficultySetting));
 
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour
             loadingGame = true;
         }
         
+        specialEnding = 0;
         gameSettings = difficultySetting;
         GameTasks.CreateGameTasks(difficultySetting.taskAmount);
         Debug.Log("Tasks Created Successfully");
@@ -138,6 +143,50 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame(GameObject loadingScreen)
+    {
+        SaveGameData();
+
+        Animator loadingScreenAnimator;
+
+        loadingScreen.TryGetComponent(out loadingScreenAnimator);
+
+        if (loadingScreenAnimator != null)
+        {
+            Debug.Log("Animator found!");
+            loadingScreenAnimator.Play("Fade In");
+        }
+        else
+        {
+            LoadEndScene();
+        }
+    }
+
+    public void EndGameSpecial(string endReason, GameObject loadingScreen)
+    {
+        SaveGameData();
+
+        Animator loadingScreenAnimator;
+
+        loadingScreen.TryGetComponent(out loadingScreenAnimator);
+
+        switch (endReason)
+        {
+            case "Overdose":
+            specialEnding = 1;
+                if (loadingScreenAnimator != null)
+                {
+                    Debug.Log("Animator found!");
+                    loadingScreenAnimator.Play("Pills Blackout");
+                }
+                else
+                {
+                    LoadEndScene();
+                }
+                break;
+        }
+    }
+
+    private void SaveGameData()
     {
         activeGame = false;
         
@@ -161,21 +210,6 @@ public class GameManager : MonoBehaviour
 
         // Reset Game Data
         time = 0;
-        
-
-        Animator loadingScreenAnimator;
-
-        loadingScreen.TryGetComponent(out loadingScreenAnimator);
-
-        if (loadingScreenAnimator != null)
-        {
-            Debug.Log("Animator found!");
-            loadingScreenAnimator.Play("Fade In");
-        }
-        else
-        {
-            LoadEndScene();
-        }
     }
 
     public void LoadEndScene()
