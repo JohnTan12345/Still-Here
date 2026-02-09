@@ -340,7 +340,7 @@ MonoBehaviour:
   PourItemPrefab: {fileID: 6122933722466382402, guid: c768fd1df41c2d54f9e6763fd8b55d5e, type: 3}
   PourAngle: 60
   RequireShaking: 1
-  ShakeThreshold: 0.5
+  ShakeThreshold: 2
 --- !u!114 &8926833499157268391
 MonoBehaviour:
   m_ObjectHideFlags: 0

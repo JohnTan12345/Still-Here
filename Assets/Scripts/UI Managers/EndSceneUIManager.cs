@@ -79,7 +79,7 @@ public class EndSceneUIManager : MonoBehaviour
         {
             Player.currentPlayer.playerData.Endings.Add("Ending 1");
         }
-        else if (GameManager.Instance.specialEnding != 0 && Player.currentPlayer.playerData.Endings.Contains($"Ending {GameManager.Instance.specialEnding + 1}"))
+        else if (GameManager.Instance.specialEnding != 0 && !Player.currentPlayer.playerData.Endings.Contains($"Ending {GameManager.Instance.specialEnding + 1}"))
         {
             Player.currentPlayer.playerData.Endings.Add($"Ending {GameManager.Instance.specialEnding + 1}");
         }

@@ -75,7 +75,19 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
                 GameObject leaderboardPlacement = Instantiate(placementGameObjectPrefab, placementGameObjectParent);
                 LeaderboardPlacementVariables leaderboardPlacementVariables = leaderboardPlacement.GetComponent<LeaderboardPlacementVariables>();
                 leaderboardPlacementVariables.namePlacement.text = $"#{i+1}: {leaderboard[i].Username}";
-                leaderboardPlacementVariables.timeText.text = $"Time: {leaderboard[i].Time}";
+
+                string timeText = "";
+
+                if (leaderboard[i].Time < 60)
+                {
+                    timeText = $"00:{(leaderboard[i].Time >= 10 ? leaderboard[i].Time : "0" + leaderboard[i].Time.ToString())}";
+                }
+                int TimeSeconds = leaderboard[i].Time % 60;
+                int TimeMinutes = (int)Mathf.Floor(leaderboard[i].Time/60);
+
+                timeText =  $"{(TimeMinutes >=10 ? TimeMinutes : "0"+ TimeMinutes)}:{(TimeSeconds >= 10 ? TimeSeconds : "0" + TimeSeconds.ToString())}";
+
+                leaderboardPlacementVariables.timeText.text = $"Time: {timeText}";
             }
         }
 

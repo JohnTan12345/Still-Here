@@ -49,6 +49,16 @@ public class WashingMachineController : MonoBehaviour
         isMachineOn = false;
     }
 
+    public void OnDoorOpen()
+    {
+        clothesSocketGroup.gameObject.SetActive(true);
+    }
+
+    public void OnDoorClose()
+    {
+        clothesSocketGroup.gameObject.SetActive(false);
+    }
+
     IEnumerator SpinLaundry()
     {
         if (isMachineOn)

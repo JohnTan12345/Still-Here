@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 7695506980601966012}
   m_Layer: 0
   m_Name: Door detector
-  m_TagString: Trash Door
+  m_TagString: Interactable Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,6 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashTaskController: {fileID: 3214515517892512777}
+  washingMachineController: {fileID: 0}
 --- !u!1001 &5616628657445710477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -531,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 827556273753816563, guid: 83efd7e22018c304988ce106783aa876, type: 3}
       propertyPath: m_TagString
-      value: Trash Door
+      value: Interactable Door
       objectReference: {fileID: 0}
     - target: {fileID: 862913708385812837, guid: 83efd7e22018c304988ce106783aa876, type: 3}
       propertyPath: m_LocalPosition.x

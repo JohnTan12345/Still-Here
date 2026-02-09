@@ -4,8 +4,16 @@ public class ItemReturnArea : MonoBehaviour
 {
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Rigidbody>().isKinematic) return;
-        other.transform.position = other.GetComponent<InteractableItemInfo>().startingPosition;
-        other.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        other.TryGetComponent(out Rigidbody rb);
+        if (rb != null && !rb.isKinematic)
+        {
+            other.TryGetComponent(out InteractableItemInfo interactableItemInfo);
+            if (interactableItemInfo != null && !interactableItemInfo.recentlyKinematic)
+            {
+                other.transform.position = interactableItemInfo.startingPosition;
+                rb.linearVelocity = Vector3.zero;
+            } 
+        }
+        
     }
 }

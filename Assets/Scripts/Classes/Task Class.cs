@@ -148,9 +148,10 @@ public class GameTask
 
     public void AddTaskProgress(int stepNumber, float progresesAmount)
     {
-        if (CurrentStepCount > stepNumber || TaskCompletionCount > 0)
+        if (stepNumber != CurrentStepCount)
         {
-            if (Steps[stepNumber].GameEndingStep)
+            Debug.Log($"CurrentStepCount > stepNumber: {CurrentStepCount > stepNumber}\nTaskCompletionCount > 0: {TaskCompletionCount > 0}\nBoth: {CurrentStepCount > stepNumber || TaskCompletionCount > 0}\nSteps[stepNumber].GameEndingStep: {Steps[stepNumber].GameEndingStep}\nAll: {(CurrentStepCount > stepNumber || TaskCompletionCount > 0) && Steps[stepNumber].GameEndingStep}");
+            if ((CurrentStepCount > stepNumber || TaskCompletionCount > 0) && Steps[stepNumber].GameEndingStep)
             {
                 EndGameManager.Instance.EndGameSpecial("Overdose");
             }
@@ -164,6 +165,7 @@ public class GameTask
 
         if (CurrentProgress < MaxProgress)
         {
+            Debug.Log($"Adding task progress of {progresesAmount}");
             CurrentProgress += progresesAmount;
         }
         
@@ -178,6 +180,7 @@ public class GameTask
             {
                 TaskComplete = true;
                 TaskCompletionCount++;
+                CurrentStepCount = -1;
             }
             
         }

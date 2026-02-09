@@ -12,6 +12,7 @@ TagManager:
   - Laundry
   - WaterParticle
   - Water
+  - Interactable Door
   - Trash Door
   layers:
   - Default
