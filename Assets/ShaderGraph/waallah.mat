@@ -69,7 +69,7 @@ Material:
     - _QueueOffset: 1
     - _clamp_max: 1
     - _depth: 3
-    - _displacement: 5
+    - _displacement: 6
     - _foam_depth: 5
     - _foam_strength: 0.4
     - _smoothness: 1
