@@ -63,17 +63,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Foam_tile: 1
+    - _Foam_tile: 50
     - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 1
     - _clamp_max: 1
-    - _depth: 1
-    - _displacement: 6
-    - _foam_depth: 0
-    - _foam_strength: 0
+    - _depth: 6
+    - _displacement: 4.52
+    - _foam_depth: 5
+    - _foam_strength: 0.4
     - _smoothness: 1
-    - _strength: 1
+    - _strength: 0.05
     - _wave_displacement: 1
     - _wave_speed: 10
     m_Colors:
