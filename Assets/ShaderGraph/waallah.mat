@@ -42,11 +42,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Normal_T2:
-        m_Texture: {fileID: 2800000, guid: 1629774ae240c5c4886f2a3855a7c22d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9aeffc9e2af94bd4e89802423193a650, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Second_normal_T2:
-        m_Texture: {fileID: 2800000, guid: 9aeffc9e2af94bd4e89802423193a650, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1629774ae240c5c4886f2a3855a7c22d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -68,16 +68,16 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 1
     - _clamp_max: 1
-    - _depth: 6
-    - _displacement: 4.52
+    - _depth: 3
+    - _displacement: 5
     - _foam_depth: 5
     - _foam_strength: 0.4
     - _smoothness: 1
-    - _strength: 0.05
+    - _strength: 0.1
     - _wave_displacement: 1
     - _wave_speed: 10
     m_Colors:
     - _deep_water_colour: {r: 0.2018511, g: 0.33114433, b: 0.3396226, a: 1}
-    - _shallow_water_colour: {r: 0.23701589, g: 0.6049584, b: 0.70440245, a: 0.9372549}
+    - _shallow_water_colour: {r: 0.23701584, g: 0.6049583, b: 0.70440245, a: 0.84313726}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
