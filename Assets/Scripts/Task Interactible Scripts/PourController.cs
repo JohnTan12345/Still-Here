@@ -35,7 +35,11 @@ public class PourController : MonoBehaviour
             {
                 StopPouring();
             }
-            StartPouring();
+            else
+            {
+                StartPouring();
+            }
+            
         }
         else
         {

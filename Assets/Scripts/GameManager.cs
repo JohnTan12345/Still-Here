@@ -207,9 +207,6 @@ public class GameManager : MonoBehaviour
             Tasklist = currentRunTasklist,
             Time = time
         };
-
-        // Reset Game Data
-        time = 0;
     }
 
     public void LoadEndScene()
