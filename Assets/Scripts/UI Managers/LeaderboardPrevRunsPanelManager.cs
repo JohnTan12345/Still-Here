@@ -94,6 +94,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         Debug.LogWarning(AccountPanelManager.Instance != null);
 
         AccountPanelManager.Instance.onAccountPanelEnable.AddListener(LoadPlayerPreviousRuns);
+        LoadPlayerPreviousRuns();
     }
 
     private void LoadPlayerPreviousRuns()
@@ -101,7 +102,6 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         if (!DatabaseAccountManager.isAuthenticated())
         {
             Debug.Log("No user logged in");
-            return;
         }
         Debug.Log("Loading player data");
         currentRunPage = 0;
