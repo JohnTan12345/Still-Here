@@ -70,10 +70,10 @@ Material:
     - _clamp_max: 1
     - _depth: 3
     - _displacement: 7
-    - _foam_depth: 5
+    - _foam_depth: 5.5
     - _foam_strength: 0.4
     - _smoothness: 1
-    - _strength: 0.1
+    - _strength: 0.05
     - _wave_displacement: 4
     - _wave_speed: 15
     m_Colors:
