@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Gametask wrapper for take medication task
+
 using UnityEngine;
 
 public class MediceneTask : MonoBehaviour

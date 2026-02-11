@@ -1,3 +1,6 @@
+// Created by: Xander
+// Description: Water plant task interactivity
+
 using UnityEngine;
 
 public class WaterPlantChecker : MonoBehaviour
@@ -9,6 +12,7 @@ public class WaterPlantChecker : MonoBehaviour
     private bool watering = false;
     private bool completed = false;
 
+    // Timer when the plant is being watered
     void Update()
     {
         if (watering && !completed)
@@ -22,6 +26,7 @@ public class WaterPlantChecker : MonoBehaviour
         }
     }
 
+    // When player waters the plant
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("WaterParticle"))
@@ -32,6 +37,7 @@ public class WaterPlantChecker : MonoBehaviour
         }
     }
 
+    // When player stops watering the plant
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("WaterParticle"))
@@ -40,6 +46,7 @@ public class WaterPlantChecker : MonoBehaviour
         }
     }
 
+    // When the plant is watered enough
     void CompleteWatering()
     {
         completed = true;

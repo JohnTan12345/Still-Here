@@ -1,3 +1,6 @@
+// Created by: Xander
+// Description: Fish swimming behaviour
+
 using UnityEngine;
 
 public class FishBehaviour : MonoBehaviour
@@ -22,6 +25,7 @@ public class FishBehaviour : MonoBehaviour
 
         Vector3 direction = currentTarget.position - transform.position;
 
+        // Turn the fish to target point
         if (direction.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -32,14 +36,17 @@ public class FishBehaviour : MonoBehaviour
             );
         }
 
+        // Move the fish to target point
         transform.position += transform.forward * swimSpeed * Time.deltaTime;
 
+        // If the fish reaches the target point
         if (Vector3.Distance(transform.position, currentTarget.position) < reachDistance)
         {
             SwitchTarget();
         }
     }
 
+    // Switches the target point
     void SwitchTarget()
     {
         currentTarget = (currentTarget == pointA) ? pointB : pointA;
