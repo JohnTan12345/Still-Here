@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Database manager for user data and game information or others
+
 using System;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -10,13 +13,14 @@ public static class DatabaseManager
     // Player Data
     private static readonly DatabaseReference userDataReference = databaseInstance.GetReference("PlayerData");
 
+    // Retrieve player data from database
     public async static Task<DatabaseResult> GetUserDataAsync()
     {
         DatabaseResult databaseResult = new DatabaseResult();
 
         try
         {
-            if (DatabaseAccountManager.isAuthenticated())
+            if (DatabaseAccountManager.isAuthenticated()) // Check if there is a user logged in
             {
                 Debug.Log("User Data Read started");
                 
@@ -34,6 +38,7 @@ public static class DatabaseManager
                 
                 await Task.WhenAny(userDataTCS.Task, Task.Delay(5000)); // Wait for either DataSnapshot or timeout
 
+                // Check if the database returns anything withing 5 seconds
                 if (userDataTCS.Task.IsCompleted == true)
                 {
                     if (userDataTCS.Task.IsFaulted) {
@@ -74,15 +79,17 @@ public static class DatabaseManager
 
         return databaseResult;
     }
+
+    // Saves the user data to the database
     public async static void SaveUserDataAsync(Player player)
     {
         try
         {
-            if (DatabaseAccountManager.isAuthenticated())
+            if (DatabaseAccountManager.isAuthenticated()) // Check if there is a user logged in
             {
                 Debug.Log("User Data Write started");
                 string userID = DatabaseAccountManager.user.UserId;
-                await userDataReference.Child(userID).SetRawJsonValueAsync(JsonUtility.ToJson(player.playerData));
+                await userDataReference.Child(userID).SetRawJsonValueAsync(JsonUtility.ToJson(player.playerData)); // Set data at the userID path
                 
             } 
             else
@@ -104,10 +111,11 @@ public static class DatabaseManager
         }
     }
 
+    // Get value from a specific path
     public async static Task<DatabaseResult> GetValueFromPath(string path)
     {
         DatabaseResult databaseResult = new DatabaseResult();
-        DatabaseReference databaseReference = databaseInstance.GetReference(path);
+        DatabaseReference databaseReference = databaseInstance.GetReference(path); // Set reference to specified path
 
         try
         {
@@ -126,7 +134,8 @@ public static class DatabaseManager
             databaseReference.ValueChanged += ValueChangedHandler; // run ValueChangedHandler since ValueChanged event runs when a listener is attached to it.
                 
             await Task.WhenAny(pathValueTCS.Task, Task.Delay(5000)); // Wait for either DataSnapshot or timeout
-
+            
+            // Check if the database returns anything withing 5 seconds
             if (pathValueTCS.Task.IsCompleted == true)
             {
                 if (pathValueTCS.Task.IsFaulted) {
@@ -162,10 +171,11 @@ public static class DatabaseManager
         return databaseResult;
     }
 
+    // Set value in a specified path with the JSON
     public async static void SetValueInPath(string path, string valueJSON)
     {
         databaseInstance.SetPersistenceEnabled(false);
-        DatabaseReference databaseReference = databaseInstance.GetReference(path);
+        DatabaseReference databaseReference = databaseInstance.GetReference(path); // Set reference to specified path
 
         try
         {

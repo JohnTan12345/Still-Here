@@ -1,6 +1,6 @@
-// Done by: Rayner
+// Created by: Rayner
 // Edited by: John
-// Descripion: Controls the breaker switches
+// Descripion: Controls the breaker switches and functions
 
 using UnityEngine;
 using System.Collections;
@@ -134,6 +134,7 @@ public class BreakerController : MonoBehaviour
         foreach (var mat in neonMats) mat.SetColor("_EmissionColor", Color.black);
     }
 
+    // Light flickering animation
     private IEnumerator FlickerRoutine()
     {
         foreach (var light in neonLights) light.intensity = 0;

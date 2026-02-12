@@ -1,4 +1,4 @@
-// Done by: Xander
+// Created by: Xander
 // Description: Detects when fish feed enters the tank. Also has jar pick up as a side function
 
 using UnityEngine;
@@ -25,6 +25,7 @@ public class FishFeedingChecker : MonoBehaviour
         }
     }
 
+    // When fish food enters the trigger, fish gets fed
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("FishFood"))
@@ -37,6 +38,7 @@ public class FishFeedingChecker : MonoBehaviour
         }
     }
 
+    // If fish food exits the trigger, stop feeding fish
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("FishFood"))
@@ -46,13 +48,14 @@ public class FishFeedingChecker : MonoBehaviour
         }
     }
 
+    // If fish is sufficiently fed
     void CompleteFeeding()
     {
         completed = true;
         feeding = false;
         OnFishFed();
 
-        if (successBubbles != null)
+        if (successBubbles != null) // Visual cue for completion
         {
             successBubbles.Play();
         }

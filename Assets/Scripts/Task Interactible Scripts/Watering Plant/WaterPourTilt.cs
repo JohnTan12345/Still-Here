@@ -1,3 +1,6 @@
+// Created by: Xander
+// Description: Temporary script for pour mechanic
+
 using UnityEngine;
 
 public class WaterPourTilt : MonoBehaviour
@@ -34,14 +37,14 @@ public class WaterPourTilt : MonoBehaviour
         }
     }
 
+    // Check if the object is tilted enough
     bool IsTiltedCorrectly()
     {
         float angle = Vector3.Angle(pourPoint.forward, Vector3.down);
         return angle < pourAngle;
     }
 
-   
-
+    // Start spawning the "particles"
     void StartPouring()
     {
         if (!pourParticles.isPlaying)
@@ -50,6 +53,7 @@ public class WaterPourTilt : MonoBehaviour
         GameObject newWaterParticle = Instantiate(waterParticlePrefab, pourPoint.position, pourPoint.rotation);
     }
 
+    // Stop spawning the "particles"
     void StopPouring()
     {
         if (pourParticles.isPlaying)

@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Account UI Panel Manager
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +26,7 @@ public class AccountPanelManager : MonoBehaviour
         }  
     }
 
+    // Check if the player is logged in and update accordingly
     void OnEnable()
     {
         if (DatabaseAccountManager.isAuthenticated())
@@ -41,6 +45,7 @@ public class AccountPanelManager : MonoBehaviour
         onAccountPanelEnable.Invoke();
     }
 
+    // Set the panel back to "not logged in"
     public void OnSignOut()
     {
         DatabaseAccountManager.SignOutAccount();

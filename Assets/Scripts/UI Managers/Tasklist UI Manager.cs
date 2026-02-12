@@ -1,3 +1,6 @@
+// Created by: John
+// Description: In-game tasklist UI manager
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +19,7 @@ public class TasklistUIManager : MonoBehaviour
     [SerializeField]
     private GameObject tasklistUI;
 
-    // Someething here is breaking when tasklist is released
+    // Set variables
     void Awake()
     {
         Instance = this;
@@ -32,6 +35,7 @@ public class TasklistUIManager : MonoBehaviour
         CreateGameTasks();
     }
 
+    // Create the game task's UI and add it to the content group
     public void CreateGameTasks()
     {
         Destroy(tasklistFrame.gameObject);
@@ -45,6 +49,8 @@ public class TasklistUIManager : MonoBehaviour
             tasklistPrefabManager.CreateUI(gameTaskName);
         }
     }
+
+    // Sets the tasklist UI back to the head
     public void OnGrabRelease()
     {
         transform.localPosition = Vector3.zero;

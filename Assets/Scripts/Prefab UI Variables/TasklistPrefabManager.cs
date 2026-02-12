@@ -1,3 +1,6 @@
+// Created by: John
+// Description: In-game tasklist UI reference point
+
 using TMPro;
 using UnityEngine;
 
@@ -15,12 +18,12 @@ public class TasklistPrefabManager : MonoBehaviour
     private string gameTaskName;
     private GameTask gameTask;
 
-    void OnDestroy()
+    void OnDestroy() // Remove listener when destroyed (stops memory leaks)
     {
         gameTask.onProgressChange -= UpdateUI;
     }
     
-    public void CreateUI(string newGameTaskName)
+    public void CreateUI(string newGameTaskName) // Create UI based on the game task info
     {
         gameTaskName = newGameTaskName;
         gameTask = GameTasks.GetGameTasks()[gameTaskName];
@@ -29,7 +32,7 @@ public class TasklistPrefabManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    private void UpdateUI() // Updates the game task UI to reflect the game task's info
     {
         Debug.Log($"Updating UI for {gameTaskName}");
         gameTaskText.text = gameTaskName;

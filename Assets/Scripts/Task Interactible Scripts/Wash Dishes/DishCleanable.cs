@@ -1,3 +1,6 @@
+// Created by: Xander
+// Description: Make the dishes look clean after being washed and washing mechanic
+
 using UnityEngine;
 
 public class DishCleanable : MonoBehaviour
@@ -15,9 +18,9 @@ public class DishCleanable : MonoBehaviour
     {
         if (isClean) return;
 
-        if (other.CompareTag("Water"))
+        if (other.CompareTag("Water")) // If the plate is being washed
         {
-            cleanTimer += Time.deltaTime;
+            cleanTimer += Time.deltaTime; // Start or continue timer until clean
 
             if (cleanTimer >= cleanTimeRequired)
             {
@@ -30,10 +33,11 @@ public class DishCleanable : MonoBehaviour
     {
         if (other.CompareTag("Water"))
         {
-            cleanTimer = Mathf.Max(cleanTimer - 0.5f, 0f);
+            cleanTimer = Mathf.Max(cleanTimer - 0.5f, 0f); // stop the timer
         }
     }
 
+    // Add progress to dishes task after being cleaned
     void CleanDish()
     {
         isClean = true;
@@ -41,6 +45,7 @@ public class DishCleanable : MonoBehaviour
         dishRenderer.material = cleanMaterial;
     }
 
+    // Gametask wrapper to start the task
     public void OnDishPickup()
     {
         GameTasks.StartGameTask("Wash Dishes");

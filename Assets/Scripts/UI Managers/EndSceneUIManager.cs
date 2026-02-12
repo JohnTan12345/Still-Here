@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Manages the UI in the end game scene
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,6 +23,7 @@ public class EndSceneUIManager : MonoBehaviour
 
     private bool allTasksComplete = true;
 
+    // Set variables for when game task stats are being added later
     void Awake()
     {
         viewport = tasklistScrollView.transform.Find("Viewport");
@@ -29,12 +33,14 @@ public class EndSceneUIManager : MonoBehaviour
         LoadCurrentRunStats();
     }
 
+    // Loads the current run's game tasks stats into the UI
     private void LoadCurrentRunStats()
     {
         Destroy(content.gameObject);
         content = Instantiate(contentCopy, viewport);
         tasklistScrollView.content = content.GetComponent<RectTransform>();
 
+        // Add the prefab UI into the content group
         foreach (TaskInfo task in Player.currentPlayer.currentRun.Tasklist)
         {
             if (allTasksComplete)
@@ -47,6 +53,7 @@ public class EndSceneUIManager : MonoBehaviour
 
         string endText = "";
 
+        // Update end day status based on how the day ended
         switch (GameManager.Instance.specialEnding)
         {
             case 0:
@@ -61,6 +68,7 @@ public class EndSceneUIManager : MonoBehaviour
         timeText.text = $"Time: {Player.currentPlayer.currentRun.GetTimeString()}";
     }
 
+    // Updates leaderboard, previous runs, endings, player data if logged in and returns to main menu
     public void GoMainMenu()
     {
         if (GameManager.Instance.specialEnding == 0 && allTasksComplete)

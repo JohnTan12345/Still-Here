@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Starting position reference to put the object back when thrown out of bounds
+
 using UnityEngine;
 
 public class InteractableItemInfo : MonoBehaviour

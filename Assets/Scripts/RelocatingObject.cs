@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Relocating object mechanic
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +19,7 @@ public class RelocatingObject : MonoBehaviour
     [SerializeField]
     private Transform targetTransform;
 
+    // Sets up the variables
     void Start()
     {
         if (string.IsNullOrEmpty(ObjectPositionsReferenceName))
@@ -37,18 +41,21 @@ public class RelocatingObject : MonoBehaviour
         gameObject.GetComponent<XRGrabInteractable>().selectExited.AddListener(OnRelease);
     }
 
+    // Allows the object to relocate after being picked up once
     private void OnPickUp(SelectEnterEventArgs eventArgs)
     {
         pickedUpBefore = true;
         currentlyPickedUp = true;
     }
 
+    // Starts the relocation timer after releasing the object
     private void OnRelease(SelectExitEventArgs eventArgs)
     {
         currentlyPickedUp = false;
         StartCoroutine(RelocateTimer());
     }
 
+    // Timer before the object relocates
     private IEnumerator RelocateTimer()
     {
         float timer = 0;
@@ -65,6 +72,7 @@ public class RelocatingObject : MonoBehaviour
         }
     }
 
+    // Relocates the object based off possible positions inside the GameInfo static class
     private void RelocateObject()
     {
         pickedUpBefore = false;

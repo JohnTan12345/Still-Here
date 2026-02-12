@@ -24,6 +24,7 @@ public class PourController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    // Check if the object is tilted enough and is being shaken if enabled
     void Update()
     {
         bool tiltedEnough = IsTiltedCorrectly();
@@ -47,17 +48,20 @@ public class PourController : MonoBehaviour
         }
     }
 
+    // Check if the object is tilted enough
     bool IsTiltedCorrectly()
     {
         float angle = Vector3.Angle(PourPoint.up, Vector3.down);
         return angle < PourAngle;
     }
 
+    // Check if the object is being shaken hard enough
     bool IsBeingShaken()
     {
         return rb.linearVelocity.magnitude > ShakeThreshold;
     }
 
+    // Spawn the prefab
     void StartPouring()
     {
         if (PourParticles != null && !PourParticles.isPlaying)
@@ -66,6 +70,7 @@ public class PourController : MonoBehaviour
         Instantiate(PourItemPrefab, PourPoint.position, PourPoint.rotation);
     }
 
+    // Stop spawning the prefab
     void StopPouring()
     {
         if (PourParticles != null && PourParticles.isPlaying)

@@ -59,6 +59,7 @@ public class WashingMachineController : MonoBehaviour
         clothesSocketGroup.gameObject.SetActive(false);
     }
 
+    // Spin the clothes and play washing VFX. When stopped, play the beep SFX
     IEnumerator SpinLaundry()
     {
         if (isMachineOn)
@@ -69,7 +70,7 @@ public class WashingMachineController : MonoBehaviour
         isMachineOn = true;
 
         float timer = 0f;
-        washingVFX.Play();
+        washingVFX.Play(); // Start the wash cycle
 
         while (isMachineOn)
         {
@@ -85,8 +86,8 @@ public class WashingMachineController : MonoBehaviour
             yield return null;
         }
 
-        washingVFX.Stop();
+        washingVFX.Stop(); // Stop the wash cycle and play the beep SFX
         if (endBeepAudio != null) {AudioSource.PlayClipAtPoint(endBeepAudio, transform.position);}
-        GameTasks.AddGameTaskProgress("Laundry", 2, 1);
+        GameTasks.AddGameTaskProgress("Laundry", 2, 1); // Add progress when clothes finish washing
     }
 }

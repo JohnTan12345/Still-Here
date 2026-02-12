@@ -10,10 +10,14 @@ public class EndGameManager : MonoBehaviour
     public Transform playerCamera;
     public Transform endGameUIInfo;
     public GameObject loadingScreenObject;
+    
+    // Unity inspector bugging out when trying to use a dictionary
     public List<string> specialEndingNames;
     public List<AudioSource> specialEndingEndSFX;
     private Dictionary<string, AudioSource> specialEndings;
+    
 
+    // Create a new dictionary that links the special ending name to it's sound effect
     void Awake()
     {
         Instance = this;
@@ -39,21 +43,25 @@ public class EndGameManager : MonoBehaviour
         endGameUIInfo.LookAt(playerCamera);
     }
 
+    // End the game through the game manager
     public void EndGame()
     {
         GameManager.Instance.EndGame(loadingScreenObject);
     }
 
+    // Animation end event listener
     public void AnimationEnd()
     {
         GameManager.Instance.LoadEndScene();
     }
 
+    // End the game through the game manager for special endings
     public void EndGameSpecial(string endReason)
     {
         GameManager.Instance.EndGameSpecial(endReason, loadingScreenObject);
     }
-
+    
+    // Play the animation for the special ending
     public void ScreenBlackout(string endingName)
     {
         Debug.Log(endingName);

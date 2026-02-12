@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Manages the Main Menu UI Panels
+
 using UnityEngine;
 
 public class MainMenuUIManager : MonoBehaviour
@@ -26,6 +29,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     private bool ShowPreviousRuns() => DatabaseAccountManager.isAuthenticated() && Player.currentPlayer.playerData.PreviousRuns.Count > 0;
 
+    // Set instance to this and get animator
     void Awake()
     {
         if (Instance != this)
@@ -36,6 +40,7 @@ public class MainMenuUIManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // switches the panel
     public void SwitchPanel(GameObject panel)
     {
         animator.Play("From main");
@@ -46,6 +51,7 @@ public class MainMenuUIManager : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Switches the panel back to main menu and enable the account panel and leaderboard panel
     public void ReturnToMainPanel()
     {
         if (gameLoaded)
@@ -61,6 +67,7 @@ public class MainMenuUIManager : MonoBehaviour
         NewGamePanel.SetActive(false);
     }
 
+    // First load of the main panel
     public void LoadMainPanel()
     {
         LeaderboardPreviousRunPanel.SetActive(false);

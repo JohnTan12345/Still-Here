@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Where the error UI is handled
+
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +30,7 @@ public class MainMenuSceneUIManager : MonoBehaviour
         }
     }
 
+    // Show the error message in game
     public void LoadingErrorLog(string message)
     {
         loadingErrorText.text = message;

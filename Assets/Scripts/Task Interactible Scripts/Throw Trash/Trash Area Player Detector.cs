@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Update the "Throw the trash" task when player is near the trash chute
+
 using UnityEngine;
 
 public class TrashAreaPlayerDetector : MonoBehaviour
@@ -7,7 +10,7 @@ public class TrashAreaPlayerDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            trashTaskController.NearTrashCan();
+            trashTaskController.NearTrashCan(); // Update the task
         }
     }
 }

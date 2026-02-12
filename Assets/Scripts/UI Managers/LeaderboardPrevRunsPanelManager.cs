@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Updates the leaderboard page and previous runs page
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,6 +44,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
     private int currentRunPage;
     private int totalPages;
 
+    // Resets the whole UI to starting state
     void Start()
     {
         previousButtonObject.SetActive(false);
@@ -54,17 +58,19 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         tasklistFrameCopy = Instantiate(tasklistViewport.transform.GetChild(0).gameObject);
     }
 
+    // Loads the leaderboard panel's leaderboard
     private IEnumerator LoadLeaderboard()
     {
         Task<List<LeaderboardInfo>> getLeaderboardTask = LeaderboardManager.GetLeaderboard();
         yield return new WaitUntil(() => getLeaderboardTask.IsCompleted);
 
-        if (getLeaderboardTask.IsFaulted || getLeaderboardTask.Result.Count < 1)
+        
+        if (getLeaderboardTask.IsFaulted || getLeaderboardTask.Result.Count < 1) // If there was an error in fetching leaderboard data or there is no leaderboard
         {
             leaderboardErrorMessage.SetActive(true);
             Debug.LogError(getLeaderboardTask.Exception);
         }
-        else
+        else // Add in all leaderboard runs and put it inside the leaderboard content group
         {
             leaderboardErrorMessage.SetActive(false);
             
@@ -76,6 +82,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
                 LeaderboardPlacementVariables leaderboardPlacementVariables = leaderboardPlacement.GetComponent<LeaderboardPlacementVariables>();
                 leaderboardPlacementVariables.namePlacement.text = $"#{i+1}: {leaderboard[i].Username}";
 
+                // Turns the time from int to XX:XX string format
                 string timeText = "";
 
                 if (leaderboard[i].Time < 60)
@@ -97,6 +104,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         LoadPlayerPreviousRuns();
     }
 
+    // Loads the previous runs inside the current player
     private void LoadPlayerPreviousRuns()
     {
         if (!DatabaseAccountManager.isAuthenticated())
@@ -110,11 +118,11 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
 
         if (previousRuns.Count != 0)
         {
-            if (previousRuns.Count == 1)
+            if (previousRuns.Count == 1) // Sets previous runs button to uninteractable if theres only one run
             {
                 viewPreviousRunsButtonObject.GetComponent<Button>().interactable = false;
             }
-            else
+            else // Sets previous runs button to interactable if theres more than one run
             {
                 viewPreviousRunsButtonObject.GetComponent<Button>().interactable = true;
                 totalPages = previousRuns.Count - 1;
@@ -124,6 +132,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         }
     }
 
+    // View next run
     public void NextRunPage()
     {
         if (currentRunPage + 1 > totalPages)
@@ -138,6 +147,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         UpdatePreviousRunPanel(false);
     }
 
+    // View previous run
     public void PreviousRunPage()
     {
         if (currentRunPage - 1 < 0)
@@ -152,6 +162,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         UpdatePreviousRunPanel(false);
     }
 
+    // Goes back to the most recent run panel
     public void ViewRecentRunPage()
     {
         currentRunPage = 0;
@@ -163,6 +174,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         viewPreviousRunsButtonObject.SetActive(true);
     }
 
+    // Goes to the most recent run panel
     public void ViewPreviousRunPage()
     {
         UpdatePreviousRunPanel(false);
@@ -173,6 +185,7 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         viewPreviousRunsButtonObject.SetActive(false);
     }
 
+    // Adds in the recent runs UI into the Previous Run Panel content group
     private void UpdatePreviousRunPanel(bool loadOnPreviousRunPanel)
     {
         if (loadOnPreviousRunPanel)
@@ -186,10 +199,12 @@ public class LeaderboardPrevRunsPanelManager : MonoBehaviour
         
         previousRunTimeText.text = $"Time: {Player.currentPlayer.playerData.PreviousRuns[currentRunPage].GetTimeString()}";
 
+        // Removes the content group then reinitalizes it again
         Destroy(tasklistViewport.transform.GetChild(0).gameObject);
         tasklistFrame = Instantiate(tasklistFrameCopy, tasklistViewport.transform);
         tasklistPanel.GetComponent<ScrollRect>().content = tasklistFrame.GetComponent<RectTransform>();
 
+        // Adds in the recent runs UI and update the UI with the stats
         foreach (TaskInfo task in Player.currentPlayer.playerData.PreviousRuns[currentRunPage].Tasklist)
         {
             GameObject newPreviousTaskUI = Instantiate(previousTaskUIPrefab, tasklistFrame.transform);
