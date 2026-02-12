@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Game task UI manager inside the tasklist for testing purposes
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +29,7 @@ public class TaskPanelUI : MonoBehaviour
     [SerializeField]
     private Button resetTask;
 
+    // Assigns the game task to the UI
     private void OnGameTaskAssign()
     {
         gameTask = GameTasks.GetGameTasks()[gameTaskName];
@@ -38,6 +42,7 @@ public class TaskPanelUI : MonoBehaviour
         CheckComplete();
     }
 
+    // Adds progress to the game task
     private void AddTaskProgress()
     {
         if (gameTask.CurrentStepCount == 0)
@@ -52,18 +57,21 @@ public class TaskPanelUI : MonoBehaviour
         CheckComplete();
     }
 
+    // Completes the game task
     private void CompleteTask()
     {
         gameTask.CompleteTask(true);
         CheckComplete();
     }
     
+    // Resets the game task
     private void ResetTask()
     {
         gameTask.ForgetTaskCompleted();
         CheckComplete();
     }
 
+    // Updates the UI if completed or not
     private void CheckComplete()
     {
         UpdateStepInfoUI();
@@ -77,6 +85,7 @@ public class TaskPanelUI : MonoBehaviour
         }
     }
 
+    // Updates the step description and step progress in the game task UI
     private void UpdateStepInfoUI()
     {
         taskText.text = gameTaskName;

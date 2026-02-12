@@ -1,3 +1,6 @@
+// Created by: John
+// Description: Manages the concurrent game and initiates stuff
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
 
+    // Testing purposes
     [Header("Testing Parameters")]
     public bool testing;
     public int taskAmount_test = 7;
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
     // Game Data Accessors
     public int GetTime() => time;
 
+    // Converts the time into to the XX:XX format
     public string GetTimeString()
     {
         if (time < 60)
@@ -41,6 +46,7 @@ public class GameManager : MonoBehaviour
         return $"{(TimeMinutes >=10 ? TimeMinutes : "0"+ TimeMinutes)}:{(TimeSeconds >= 10 ? TimeSeconds : "0" + TimeSeconds.ToString())}";
     }
 
+    // Initialize scripts
     void Awake()
     {
         if (Instance != this)
@@ -60,6 +66,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadGameInfoVariables());
     }
 
+    // Load game tasks list, creates a new player and loads main menu. If testing, starts a new game
     private IEnumerator LoadGameInfoVariables()
     {
         Task gameInfoLoadingTask = GameInfo.FetchGameInfoDatabase();
@@ -111,9 +118,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Starts a new game with the given settings
     public IEnumerator StartGame(DifficultySetting difficultySetting)
     {
         Debug.Log("Starting new game");
+
+        // Stop the function if the game is being loaded
         if (loadingGame)
         {
             yield break;
@@ -122,15 +132,16 @@ public class GameManager : MonoBehaviour
             loadingGame = true;
         }
         
+        // Resets the game data if there was a run before
         specialEnding = 0;
         gameSettings = difficultySetting;
-        GameTasks.CreateGameTasks(difficultySetting.taskAmount);
+        GameTasks.CreateGameTasks(difficultySetting.taskAmount); // Loads new set of game tasks
         Debug.Log("Tasks Created Successfully");
         time = 0;
         
         activeGame = true;
 
-        if (!testing)
+        if (!testing) // Load new scene
         {
             SceneManager.LoadSceneAsync(1);
         }
@@ -138,10 +149,13 @@ public class GameManager : MonoBehaviour
         yield return null;
 
         loadingGame = false;
+        
+        // Starts the in-game timer and "forget" mechanic timer
         StartCoroutine(StartTimer());
         StartCoroutine(StartForgetTImer());
     }
 
+    // Ends the game
     public void EndGame(GameObject loadingScreen)
     {
         SaveGameData();
@@ -150,6 +164,7 @@ public class GameManager : MonoBehaviour
 
         loadingScreen.TryGetComponent(out loadingScreenAnimator);
 
+        // Load the end scene if there is no animation
         if (loadingScreenAnimator != null)
         {
             Debug.Log("Animator found!");
@@ -161,6 +176,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Ends the game in a special way
     public void EndGameSpecial(string endReason, GameObject loadingScreen)
     {
         SaveGameData();
@@ -169,6 +185,7 @@ public class GameManager : MonoBehaviour
 
         loadingScreen.TryGetComponent(out loadingScreenAnimator);
 
+        // Set the special ending and plays the animation, loads the scene if no animation at all
         switch (endReason)
         {
             case "Overdose":
@@ -186,6 +203,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Saves the player data
     private void SaveGameData()
     {
         activeGame = false;
@@ -209,16 +227,19 @@ public class GameManager : MonoBehaviour
         };
     }
 
+    // Loads the end scene
     public void LoadEndScene()
     {
         SceneManager.LoadScene(2);
     }
 
+    // Loads the main menu scene
     public void ReturnMainMenu()
     {
         SceneManager.LoadScene(0);
     }
 
+    // Starts the in-game timer while game is active
     private IEnumerator StartTimer()
     {
         while (activeGame)
@@ -228,6 +249,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Starts the in-game timer for the "forget" mechanic while the game is active
     private IEnumerator StartForgetTImer()
     {
         int forgetTime = 0;

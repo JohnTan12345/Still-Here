@@ -1,3 +1,6 @@
+// Created by: John
+// Description: UI Manager for the login panel
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +27,7 @@ public class LoginPanelManager : MonoBehaviour
 
     private bool login = true;
 
+    // Assign listeners
     void Start()
     {
         loginSignUpButton.onClick.AddListener(onButtonClicked);
@@ -31,6 +35,7 @@ public class LoginPanelManager : MonoBehaviour
         errorMessage.gameObject.SetActive(false);
     }
 
+    // When button is clicked, create an account or log into existing account
     private void onButtonClicked()
     {
         if (login)
@@ -42,6 +47,8 @@ public class LoginPanelManager : MonoBehaviour
             StartCoroutine(SignUp());
         }
     }
+
+    // Switching between login and sign up
     private void onSwitch()
     {
         login = !login;
@@ -56,6 +63,8 @@ public class LoginPanelManager : MonoBehaviour
             switchText.text = "Have Account?";
         }
     }
+
+    // Login to an existing account
     private IEnumerator Login()
     {
         bool valid = CheckInputs();
@@ -82,6 +91,8 @@ public class LoginPanelManager : MonoBehaviour
 
         password.text = "";
     }
+
+    // Create a new account
     private IEnumerator SignUp()
     {
         bool valid = CheckInputs();
@@ -108,26 +119,27 @@ public class LoginPanelManager : MonoBehaviour
         password.text = "";
     }
 
+    // Input validation
     private bool CheckInputs()
     {
         errorMessage.gameObject.SetActive(false);
 
-        if (email.text.Length == 0)
+        if (email.text.Length == 0) // Check if theres anything inside the email field
         {
             AccountLogError("Please enter an email");
             return false;
         }
-        else if (!(email.text.Contains("@") || email.text.Contains(".")))
+        else if (!(email.text.Contains("@") || email.text.Contains("."))) // Check if email is valid
         {
             AccountLogError("Invalid email");
             return false;
         }
-        else if (password.text.Length == 0)
+        else if (password.text.Length == 0) // Check if there is anything inside the password field
         {
             AccountLogError("Please enter a password");
             return false;
         }
-        else if (password.text.Length < 8)
+        else if (password.text.Length < 8) // Check if the password is more than or equal to 8 characters long
         {
             if (login)
             {
@@ -144,6 +156,7 @@ public class LoginPanelManager : MonoBehaviour
         return true;
     }
 
+    // Shows the error
     private void AccountLogError(string message)
     {
         Debug.LogError(message);

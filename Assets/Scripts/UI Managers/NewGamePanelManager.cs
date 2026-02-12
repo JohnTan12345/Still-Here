@@ -1,3 +1,6 @@
+// Created by: John
+// Description: UI to create a new game and adjust settings
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -60,6 +63,7 @@ public class NewGamePanelManager : MonoBehaviour
         startGameButton.onClick.AddListener(StartGame);
     }
 
+    // Loads the game tasks in database and updates the max settings accordingly
     public IEnumerator LoadValues()
     {
         yield return new WaitUntil(() => GameInfo.DataLoaded == true);
@@ -70,6 +74,7 @@ public class NewGamePanelManager : MonoBehaviour
         ChangeDifficulty(0);
     }
 
+    // Updates the difficulty settings object when the values are changed
     public void OnValueChanged()
     {
         if (difficultyMode == defaultDifficultySettings.Count)
@@ -82,8 +87,10 @@ public class NewGamePanelManager : MonoBehaviour
         UpdateUI();
     }
 
+    // Changes preset difficulty or unlocks customization
     public void ChangeDifficulty(int change)
     {
+        // Difficulty settings switcher
         if (difficultyMode + change < 0)
         {
             difficultyMode = defaultDifficultySettings.Count;
@@ -97,6 +104,7 @@ public class NewGamePanelManager : MonoBehaviour
             difficultyMode += change;
         }
 
+        // Enable custom settings
         if (difficultyMode == defaultDifficultySettings.Count)
         {
             currentDifficultySetting.name = "Custom";
@@ -112,6 +120,7 @@ public class NewGamePanelManager : MonoBehaviour
         UpdateUI();
     }
 
+    // Sets the settings as the preset
     private void SetNewDifficultyPreset(DifficultySetting newDifficultySetting)
     {
         Debug.Log("Setting new difficulty");
@@ -120,6 +129,8 @@ public class NewGamePanelManager : MonoBehaviour
         currentDifficultySetting.forgetFrequency = newDifficultySetting.forgetFrequency;
         currentDifficultySetting.changeTasklistOrder = newDifficultySetting.changeTasklistOrder;
     }
+
+    // Updates the UI when the difficulty object values change
     private void UpdateUI()
     {
         Debug.Log("Updating UI");
@@ -130,6 +141,7 @@ public class NewGamePanelManager : MonoBehaviour
         changeTasklistOrderToggle.isOn = currentDifficultySetting.changeTasklistOrder;
     }
 
+    // Makes the settings interactable or non interactable
     private void SetCustomDifficultyUIInteractable(bool value)
     {
         taskAmountSlider.interactable = value;
@@ -138,6 +150,7 @@ public class NewGamePanelManager : MonoBehaviour
         changeTasklistOrderToggle.interactable = value;
     }
 
+    // Starts the game
     private void StartGame()
     {
         StartCoroutine(GameManager.Instance.StartGame(currentDifficultySetting));

@@ -1,3 +1,6 @@
+// Created by: Lucas
+// Description: enables low pass filter for the rain when player enters an area
+
 using JetBrains.Annotations;
 using UnityEngine;
 

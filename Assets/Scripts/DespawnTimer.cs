@@ -1,4 +1,4 @@
-// Done by: John
+// Created by: John
 // Description: Removes object after a set amount of time
 
 using System.Collections;
@@ -12,6 +12,7 @@ public class DespawnTimer : MonoBehaviour
         StartCoroutine(StartTimer());
     }
 
+    // Destroys the gameobject after a set time
     private IEnumerator StartTimer()
     {
         int timer = 0;

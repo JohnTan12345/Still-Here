@@ -1,3 +1,6 @@
+// Created by: John
+// Description: A manager script for the game tasks test UI
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +24,7 @@ public class TasklistPanelManager : MonoBehaviour
         resetSomeTasksButton.onClick.AddListener(ForgetTasks);
     }
 
+    // Creates game task set
     private void CreateTasks()
     {
         GameTasks.CreateGameTasks(int.Parse(createAmount.text));
@@ -28,12 +32,14 @@ public class TasklistPanelManager : MonoBehaviour
         UpdateUI();
     }
 
+    // Reset some tasks
     private void ForgetTasks()
     {
         GameTasks.ForgetCompletedGameTasks(4, true);
         UpdateUI();
     }
 
+    // Update UI to reflect on the updated changes
     private void UpdateUI()
     {
         int i = 0;
@@ -48,6 +54,7 @@ public class TasklistPanelManager : MonoBehaviour
             }
         }
 
+        // Create a UI panel for the game task and set it inside the content group
         foreach (string gameTaskName in GameTasks.GetGameTasksOrder())
         {
             GameObject newTaskPanel = Instantiate(taskPanel, taskPanelParent.transform);
