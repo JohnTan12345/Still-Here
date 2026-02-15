@@ -62,3 +62,20 @@
 -	If you pull the clothes far enough from the washing machine after putting it in, it will go back to its starting position
 
 # Credits/References
+- Short circuit SFX: https://freesound.org/s/576590/ 
+- Circuit breaker SFX: https://freesound.org/s/381447/ 
+- Washing machine SFX: https://pixabay.com/sound-effects/search/washing%20machine%20tune/
+- Rain SFX: https://pixabay.com/sound-effects/search/rain/
+- Trees Unity Asset: https://assetstore.unity.com/packages/3d/vegetation/big-oak-tree-free-279431
+
+Copilot and ChatGPT were used partially to write the following scripts:
+- FishBehaviour.cs
+- FishFeedingTracker.cs
+- FoodTrigger.cs
+- BreakerController.cs
+- DishCleanable.cs
+- TapWaterTrigger.cs
+- WashingMachineController.cs
+- WaterPlantTracker.cs
+- WaterPourTilt.cs
+- PourController.cs
