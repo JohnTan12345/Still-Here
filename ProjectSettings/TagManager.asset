@@ -5,11 +5,20 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - PlayerHand
+  - TrashBag
+  - FishFood
+  - Pills
+  - Laundry
+  - WaterParticle
+  - Water
+  - Interactable Door
+  - Trash Door
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Particles
   - Water
   - UI
   - 
