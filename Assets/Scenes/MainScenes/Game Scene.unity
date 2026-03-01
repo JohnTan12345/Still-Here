@@ -16736,7 +16736,7 @@ PrefabInstance:
       objectReference: {fileID: 366091026}
     - target: {fileID: 1062432231401208857, guid: 80c1665c680bc0349be4959ab6572dea, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 299.99762
+      value: -0.0005493164
       objectReference: {fileID: 0}
     - target: {fileID: 2193757042008175514, guid: 80c1665c680bc0349be4959ab6572dea, type: 3}
       propertyPath: m_Name
@@ -16926,6 +16926,10 @@ PrefabInstance:
     - target: {fileID: 418545090235914482, guid: 3e4f01a1653198140beebf2c3115d2b5, type: 3}
       propertyPath: glowColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 418545090235914482, guid: 3e4f01a1653198140beebf2c3115d2b5, type: 3}
+      propertyPath: maxFlipsBeforeBreak
+      value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 418545090235914482, guid: 3e4f01a1653198140beebf2c3115d2b5, type: 3}
       propertyPath: neonLights.Array.size
